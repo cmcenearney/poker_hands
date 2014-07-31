@@ -40,6 +40,12 @@ public class Hand {
         return ranks;
     }
 
+    public TreeSet<Rank> ranks(){
+        TreeSet<Rank> ranks = new TreeSet<>();
+        ranks.addAll(countedRanks().keySet());
+        return ranks;
+    }
+
     public boolean isOfAKind(int n){
         return !ranksByCount(n).isEmpty();
     }

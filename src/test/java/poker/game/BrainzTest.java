@@ -7,7 +7,6 @@ import poker.model.Hand;
 import poker.model.PokerHand;
 import poker.utils.HandBuilder;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 public class BrainzTest extends PokerTest {
@@ -102,8 +101,8 @@ public class BrainzTest extends PokerTest {
 
     @Test
     public void testFourOfAKindComparison() {
-        Hand winner = brainz.compareTwoHands(handFourfAKindFour, handFourfAKindQueen);
-        assertEquals(handFourfAKindQueen, winner);
+        Hand winner = brainz.compareTwoHands(handFourOfAKindFour, handFourOfAKindQueen);
+        assertEquals(handFourOfAKindQueen, winner);
     }
 
     //expect this to work fine with default - highcard - comparison
@@ -124,6 +123,30 @@ public class BrainzTest extends PokerTest {
     public void testWeirdBug(){
         String line = "AD QH TH 9D 8H TS 6D 3S AS AC";
         Hand[] parsed = HandBuilder.parseEulerLine(line);
+    }
+
+    @Test
+    public void testPairTieJudgedCorrectly(){
+        Hand winner = Brainz.compareTwoHands(tieHandPairTwoHighCardAceToEight, tieHandPairTwoHighCardAceToSeven);
+        assertEquals(tieHandPairTwoHighCardAceToEight, winner);
+    }
+
+    @Test
+    public void testTwoPairTieJudgedCorrectly(){
+        Hand winner = Brainz.compareTwoHands(tieHandTwoPairTwoHighCardSeven, tieHandTwoPairTwoHighCardEight);
+        assertEquals(tieHandTwoPairTwoHighCardEight, winner);
+    }
+
+    @Test
+    public void testThreeOfAKindTieJudgedCorrectly(){
+        Hand winner = Brainz.compareTwoHands(tieHandThreeOfAKindEight, tieHandThreeOfAKindSeven);
+        assertEquals(tieHandThreeOfAKindEight, winner);
+    }
+
+    @Test
+    public void testTrueTieHasNoWinner(){
+        Hand winner = Brainz.compareTwoHands(trueTieHandPair, trueTieHandPair2);
+        assertEquals(null, winner);
     }
 
 }

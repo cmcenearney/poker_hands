@@ -7,3 +7,7 @@ This is a Java 8 solution to the [Project Euler poker problem](https://projecteu
 
 
 
+TODO
+- recursive test for high card as needed when hands tie
+- make the overall comparison function a Comparator
+- dry up the comparators

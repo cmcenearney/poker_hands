@@ -3,6 +3,8 @@ package poker;
 import poker.model.Hand;
 import poker.utils.HandBuilder;
 
+import java.util.Collection;
+
 public class PokerTest {
 
     public Hand handSimpleHighCard = HandBuilder.parseEulerFormat("2H 5D 7C 9D AS");
@@ -34,8 +36,8 @@ public class PokerTest {
     public Hand handFullHouseAceTwo = HandBuilder.parseEulerFormat("AD AS AC 2S 2H");
     public Hand handFullHouseAceThree = HandBuilder.parseEulerFormat("AD AC AH 3D 3S");
 
-    public Hand handFourfAKindQueen = HandBuilder.parseEulerFormat("QD QS QC KS QH");
-    public Hand handFourfAKindFour = HandBuilder.parseEulerFormat("AD 4C 4H 4D 4S");
+    public Hand handFourOfAKindQueen = HandBuilder.parseEulerFormat("QD QS QC KS QH");
+    public Hand handFourOfAKindFour = HandBuilder.parseEulerFormat("AD 4C 4H 4D 4S");
 
     public Hand handStraightFlushJack = HandBuilder.parseEulerFormat("JD TD 8D 7D 9D");
     public Hand handStraightFlushNine = HandBuilder.parseEulerFormat("5S 6S 7S 8S 9S");
@@ -43,6 +45,20 @@ public class PokerTest {
     public Hand handRoyalFlushClubs  = HandBuilder.parseEulerFormat("TC AC JC QC KC");
     public Hand handRoyalFlushHearts = HandBuilder.parseEulerFormat("AH KH QH JH TH");
 
-    public PokerTest(){}
+    public Hand tieHandPairTwoHighCardAceToSeven = HandBuilder.parseEulerFormat("2C 2D AC 9H 7S");
+    public Hand tieHandPairTwoHighCardAceToEight = HandBuilder.parseEulerFormat("2S 2H AD 9C 8S");
+
+    public Hand tieHandTwoPairTwoHighCardSeven = HandBuilder.parseEulerFormat("2C 2D AC AH 7S");
+    public Hand tieHandTwoPairTwoHighCardEight = HandBuilder.parseEulerFormat("2S 2H AD AS 8S");
+
+    public Hand tieHandThreeOfAKindEight = HandBuilder.parseEulerFormat("2C 2D 2H AH 8S");
+    public Hand tieHandThreeOfAKindSeven = HandBuilder.parseEulerFormat("2S 2H 2D AS 7S");
+
+    public Hand trueTieHandPair = HandBuilder.parseEulerFormat("2C 4D 9H 8H 8S");
+    public Hand trueTieHandPair2 = HandBuilder.parseEulerFormat("2S 4H 9D 8D 8C");
+
+    public PokerTest(){
+
+    }
 
 }

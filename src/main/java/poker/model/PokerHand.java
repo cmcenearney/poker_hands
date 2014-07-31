@@ -102,6 +102,19 @@ public enum PokerHand {
         return 0;
     }
 
+    public static int compareRemainingRanks(TreeSet<Rank> one, TreeSet<Rank> two){
+        if (one.size() == 1 && two.size() == 1){
+            return one.last().position() - two.last().position();
+        }
+        Rank oneHighest = one.pollLast();
+        Rank twoHighest = two.pollLast();
+        if (oneHighest != twoHighest){
+            return oneHighest.position() - twoHighest.position();
+        } else {
+            return compareRemainingRanks(one, two);
+        }
+    }
+
     public static int compareOnePairHands(Hand one, Hand two){
         TreeSet<Rank> handOnePairRanksSet = one.ranksByCount(2);
         Rank[] handOnePairRanks =  handOnePairRanksSet.toArray(new Rank[handOnePairRanksSet.size()]);
@@ -114,7 +127,12 @@ public enum PokerHand {
         if ( handOneHighPairRank.position() > handTwoHighPairRank.position() ) return 1;
         if ( handOneHighPairRank.position() < handTwoHighPairRank.position() ) return -1;
 
-        return 0;
+        TreeSet<Rank> oneRemainder = one.ranks();
+        oneRemainder.removeAll(handOnePairRanksSet);
+        TreeSet<Rank> twoRemainder = two.ranks();
+        twoRemainder.removeAll(handTwoPairRanksSet);
+
+        return compareRemainingRanks(oneRemainder, twoRemainder);
     }
 
     public static int compareTwoPairHands(Hand one, Hand two){
@@ -135,7 +153,12 @@ public enum PokerHand {
             if ( handOneLowPairRank.position() > handTwoLowPairRank.position() ) return 1;
             if ( handOneLowPairRank.position() < handTwoLowPairRank.position() ) return -1;
         }
-        return 0;
+        TreeSet<Rank> oneRemainder = one.ranks();
+        oneRemainder.removeAll(handOnePairRanksSet);
+        TreeSet<Rank> twoRemainder = two.ranks();
+        twoRemainder.removeAll(handTwoPairRanksSet);
+
+        return compareRemainingRanks(oneRemainder, twoRemainder);
     }
 
 
@@ -151,7 +174,13 @@ public enum PokerHand {
         if ( handOneHighThreeRank.position() > handTwoHighThreeRank.position() ) return 1;
         if ( handOneHighThreeRank.position() < handTwoHighThreeRank.position() ) return -1;
 
-        return 0;
+        TreeSet<Rank> oneRemainder = one.ranks();
+        oneRemainder.removeAll(handOneThreeRanksSet);
+        TreeSet<Rank> twoRemainder = two.ranks();
+        twoRemainder.removeAll(handTwoThreeRanksSet);
+
+        return compareRemainingRanks(oneRemainder, twoRemainder);
+
     }
 
     public static int compareFourOfAKindHands(Hand one, Hand two){
