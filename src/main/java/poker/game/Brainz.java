@@ -1,27 +1,25 @@
 package poker.game;
 
 import poker.model.Hand;
-import poker.model.PokerHand;
-
-import java.util.List;
+import poker.model.hands.PokerHands;
 
 public class Brainz {
 
     Brainz(){}
 
-    public PokerHand evaluateHand(Hand hand){
-        for(PokerHand pokerHand : PokerHand.highestToLowest()){
+    public PokerHands evaluateHand(Hand hand){
+        for(PokerHands pokerHand : PokerHands.highestToLowest()){
             //System.out.println(pokerHand.ordinal() + " " + pokerHand.name());
             if (pokerHand.test.apply(hand)){
                 return pokerHand;
             }
         }
-        return PokerHand.values()[0];
+        return PokerHands.values()[0];
     }
 
     public Hand compareTwoHands(Hand handOne, Hand handTwo){
-        PokerHand handOneRank = evaluateHand(handOne);
-        PokerHand handTwoRank = evaluateHand(handTwo);
+        PokerHands handOneRank = evaluateHand(handOne);
+        PokerHands handTwoRank = evaluateHand(handTwo);
         if (handOneRank.equals(handTwoRank)){
             //each hand has custom comparator for this situation ?
             int comparison = handOneRank.comparator.compare(handOne, handTwo);

@@ -4,10 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import poker.PokerTest;
 import poker.model.Hand;
-import poker.model.PokerHand;
+import poker.model.hands.PokerHands;
 import poker.utils.HandBuilder;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 public class BrainzTest extends PokerTest {
@@ -52,7 +51,7 @@ public class BrainzTest extends PokerTest {
 
     @Test
     public void testFourOfAKindEvaluates() {
-        assertEquals(PokerHand.FOUR_OF_A_KIND, brainz.evaluateHand(handSimpleFourOfAKind));
+        assertEquals(PokerHands.FOUR_OF_A_KIND, brainz.evaluateHand(handSimpleFourOfAKind));
     }
 
     @Test
