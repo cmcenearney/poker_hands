@@ -9,8 +9,7 @@ public class Brainz {
 
     public PokerHands evaluateHand(Hand hand){
         for(PokerHands pokerHand : PokerHands.highestToLowest()){
-            //System.out.println(pokerHand.ordinal() + " " + pokerHand.name());
-            if (pokerHand.test.apply(hand)){
+            if (pokerHand.handClass.test )){
                 return pokerHand;
             }
         }
@@ -22,7 +21,7 @@ public class Brainz {
         PokerHands handTwoRank = evaluateHand(handTwo);
         if (handOneRank.equals(handTwoRank)){
             //each hand has custom comparator for this situation ?
-            int comparison = handOneRank.comparator.compare(handOne, handTwo);
+            int comparison = handOneRank.handClass.compareTwoHands(handOne, handTwo);
             if (comparison > 0){
                 return handOne;
             } else if (comparison < 0){
