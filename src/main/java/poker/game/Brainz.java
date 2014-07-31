@@ -9,7 +9,7 @@ public class Brainz {
 
     Brainz(){}
 
-    public PokerHand evaluateHand(Hand hand){
+    public static PokerHand evaluateHand(Hand hand){
         for(PokerHand pokerHand : PokerHand.highestToLowest()){
             //System.out.println(pokerHand.ordinal() + " " + pokerHand.name());
             if (pokerHand.test.apply(hand)){
@@ -19,7 +19,7 @@ public class Brainz {
         return PokerHand.values()[0];
     }
 
-    public Hand compareTwoHands(Hand handOne, Hand handTwo){
+    public static Hand compareTwoHands(Hand handOne, Hand handTwo){
         PokerHand handOneRank = evaluateHand(handOne);
         PokerHand handTwoRank = evaluateHand(handTwo);
         if (handOneRank.equals(handTwoRank)){

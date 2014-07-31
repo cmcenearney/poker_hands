@@ -63,15 +63,67 @@ public class BrainzTest extends PokerTest {
 
     //hands of the same type
     @Test
+    public void testOnePairComparison() {
+        Hand winner = brainz.compareTwoHands(handOnePairJack, handOnePairNine);
+        assertEquals(handOnePairJack, winner);
+    }
+
+    @Test
     public void testTwoPairComparison() {
         Hand winner = brainz.compareTwoHands(handTwoPairKingQueen, handTwoPairKingFour);
         assertEquals(handTwoPairKingQueen, winner);
     }
 
     @Test
+    public void testThreeOfAKindComparison() {
+        Hand winner = brainz.compareTwoHands(handThreeOfAKindQueen, handThreeOfAKindFour);
+        assertEquals(handThreeOfAKindQueen, winner);
+    }
+
+    //expect this to work fine with default - highcard - comparison
+    @Test
+    public void testStraightComparison() {
+        Hand winner = brainz.compareTwoHands(handStraightSix, handStraightTen);
+        assertEquals(handStraightTen, winner);
+    }
+
+    //expect this to work fine with default - highcard - comparison
+    @Test
+    public void testFlushComparison() {
+        Hand winner = brainz.compareTwoHands(handFlushAce, handFlushNine);
+        assertEquals(handFlushAce, winner);
+    }
+
+    @Test
     public void testFullHouseComparison() {
         Hand winner = brainz.compareTwoHands(handFullHouseAceTwo, handFullHouseAceThree);
         assertEquals(handFullHouseAceThree, winner);
+    }
+
+    @Test
+    public void testFourOfAKindComparison() {
+        Hand winner = brainz.compareTwoHands(handFourfAKindFour, handFourfAKindQueen);
+        assertEquals(handFourfAKindQueen, winner);
+    }
+
+    //expect this to work fine with default - highcard - comparison
+    @Test
+    public void testStraightFlushComparison() {
+        Hand winner = brainz.compareTwoHands(handStraightFlushJack, handStraightFlushNine);
+        assertEquals(handStraightFlushJack, winner);
+    }
+
+    //any two Royal Flushes are a tie
+    @Test
+    public void testRoyalFlushComparison() {
+        Hand winner = brainz.compareTwoHands(handRoyalFlushClubs, handRoyalFlushHearts);
+        assertEquals(null, winner);
+    }
+
+    @Test
+    public void testWeirdBug(){
+        String line = "AD QH TH 9D 8H TS 6D 3S AS AC";
+        Hand[] parsed = HandBuilder.parseEulerLine(line);
     }
 
 }

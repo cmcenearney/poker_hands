@@ -18,13 +18,13 @@ import java.util.function.Function;
 public enum PokerHand {
 
     HIGH_CARD("Highest value card", PokerHand::isHighCard),
-    ONE_PAIR("Two cards of the same value", PokerHand::isOnePair),
+    ONE_PAIR("Two cards of the same value", PokerHand::isOnePair, PokerHand::compareOnePairHands),
     TWO_PAIR("Two different pairs", PokerHand::isTwoPair, PokerHand::compareTwoPairHands),
-    THREE_OF_A_KIND("Three cards of the same value", PokerHand::isThreeOfAKind),
+    THREE_OF_A_KIND("Three cards of the same value", PokerHand::isThreeOfAKind, PokerHand::compareThreeOfAKindHands),
     STRAIGHT("All cards are consecutive values", PokerHand::isStraight),
     FLUSH("All cards of the same suit", PokerHand::isFlush),
     FULL_HOUSE("Three of a kind and a pair", PokerHand::isFullHouse, PokerHand::compareFullHouseHands),
-    FOUR_OF_A_KIND("Four cards of the same value", PokerHand::isFourOfAKind),
+    FOUR_OF_A_KIND("Four cards of the same value", PokerHand::isFourOfAKind, PokerHand::compareFourOfAKindHands),
     STRAIGHT_FLUSH("All cards are consecutive values of same suit", PokerHand::isStraightFlush),
     ROYAL_FLUSH(" Ten, Jack, Queen, King, Ace, in same suit", PokerHand::isRoyalFlush);
 
@@ -102,6 +102,21 @@ public enum PokerHand {
         return 0;
     }
 
+    public static int compareOnePairHands(Hand one, Hand two){
+        TreeSet<Rank> handOnePairRanksSet = one.ranksByCount(2);
+        Rank[] handOnePairRanks =  handOnePairRanksSet.toArray(new Rank[handOnePairRanksSet.size()]);
+        Rank handOneHighPairRank = handOnePairRanks[handOnePairRanksSet.size() - 1];
+
+        TreeSet<Rank> handTwoPairRanksSet = two.ranksByCount(2);
+        Rank[] handTwoPairRanks =  handTwoPairRanksSet.toArray(new Rank[handTwoPairRanksSet.size()]);
+        Rank handTwoHighPairRank = handTwoPairRanks[handTwoPairRanksSet.size() - 1];
+
+        if ( handOneHighPairRank.position() > handTwoHighPairRank.position() ) return 1;
+        if ( handOneHighPairRank.position() < handTwoHighPairRank.position() ) return -1;
+
+        return 0;
+    }
+
     public static int compareTwoPairHands(Hand one, Hand two){
         if (!isTwoPair(one) && !isTwoPair(two)){
            throw new IllegalArgumentException();
@@ -120,6 +135,37 @@ public enum PokerHand {
             if ( handOneLowPairRank.position() > handTwoLowPairRank.position() ) return 1;
             if ( handOneLowPairRank.position() < handTwoLowPairRank.position() ) return -1;
         }
+        return 0;
+    }
+
+
+    public static int compareThreeOfAKindHands(Hand one, Hand two){
+        TreeSet<Rank> handOneThreeRanksSet = one.ranksByCount(3);
+        Rank[] handOneThreeRanks =  handOneThreeRanksSet.toArray(new Rank[handOneThreeRanksSet.size()]);
+        Rank handOneHighThreeRank = handOneThreeRanks[handOneThreeRanksSet.size() - 1];
+
+        TreeSet<Rank> handTwoThreeRanksSet = two.ranksByCount(3);
+        Rank[] handTwoThreeRanks =  handTwoThreeRanksSet.toArray(new Rank[handTwoThreeRanksSet.size()]);
+        Rank handTwoHighThreeRank = handTwoThreeRanks[handTwoThreeRanksSet.size() - 1];
+
+        if ( handOneHighThreeRank.position() > handTwoHighThreeRank.position() ) return 1;
+        if ( handOneHighThreeRank.position() < handTwoHighThreeRank.position() ) return -1;
+
+        return 0;
+    }
+
+    public static int compareFourOfAKindHands(Hand one, Hand two){
+        TreeSet<Rank> handOneThreeRanksSet = one.ranksByCount(4);
+        Rank[] handOneThreeRanks =  handOneThreeRanksSet.toArray(new Rank[handOneThreeRanksSet.size()]);
+        Rank handOneHighThreeRank = handOneThreeRanks[handOneThreeRanksSet.size() - 1];
+
+        TreeSet<Rank> handTwoThreeRanksSet = two.ranksByCount(4);
+        Rank[] handTwoThreeRanks =  handTwoThreeRanksSet.toArray(new Rank[handTwoThreeRanksSet.size()]);
+        Rank handTwoHighThreeRank = handTwoThreeRanks[handTwoThreeRanksSet.size() - 1];
+
+        if ( handOneHighThreeRank.position() > handTwoHighThreeRank.position() ) return 1;
+        if ( handOneHighThreeRank.position() < handTwoHighThreeRank.position() ) return -1;
+
         return 0;
     }
 

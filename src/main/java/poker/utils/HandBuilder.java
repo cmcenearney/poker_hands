@@ -22,13 +22,13 @@ public class HandBuilder {
         if (items.length != 10){
             throw new IllegalArgumentException("expecting ten cards per line in format: 8C TS KC 9H 4S 7D 2S 5D 3S AC");
         }
-        String[] playerOneCards = Arrays.copyOfRange(items, 0, 4);
+        String[] playerOneCards = Arrays.copyOfRange(items, 0, 5);
         Hand playerOneHand = new Hand();
         for (String cardString : playerOneCards){
             Card card = new Card(cardString);
             playerOneHand.addCard(card);
         }
-        String[] playerTwoCards = Arrays.copyOfRange(items, 5, 9);
+        String[] playerTwoCards = Arrays.copyOfRange(items, 5, 10);
         Hand playerTwoHand = new Hand();
         for (String cardString : playerTwoCards){
             Card card = new Card(cardString);

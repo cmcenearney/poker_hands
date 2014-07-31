@@ -29,4 +29,12 @@ public class HandBuilderTest {
         assertEquals(hand.getCards(), handSimpleThreeOfAKind.getCards());
     }
 
+    @Test
+    public void testWeirdBug(){
+        String line = "AD QH TH 9D 8H TS 6D 3S AS AC";
+        Hand[] parsed = HandBuilder.parseEulerLine(line);
+        assert(parsed[0].getCards().size() == 5);
+        assert(parsed[1].getCards().size() == 5);
+    }
+
 }
