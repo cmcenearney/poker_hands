@@ -1,20 +1,13 @@
 package poker;
 
-import poker.game.Brainz;
-import poker.model.Card;
+import poker.game.Poker;
 import poker.model.Hand;
 import poker.utils.HandBuilder;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Euler {
@@ -39,7 +32,7 @@ public class Euler {
         if (hands == null){
             System.out.println(line);
         }
-        Hand winner = Brainz.compareTwoHands(hands[0], hands[1]);
+        Hand winner = Poker.compareTwoHands(hands[0], hands[1]);
         if (winner != null) {
             if (winner.equals(hands[0]))
                 playerOneWins++;

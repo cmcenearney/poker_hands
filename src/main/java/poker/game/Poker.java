@@ -5,9 +5,9 @@ import poker.model.PokerHand;
 
 import java.util.List;
 
-public class Brainz {
+public class Poker {
 
-    Brainz(){}
+    Poker(){}
 
     public static PokerHand evaluateHand(Hand hand){
         for(PokerHand pokerHand : PokerHand.highestToLowest()){

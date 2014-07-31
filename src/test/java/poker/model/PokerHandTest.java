@@ -1,12 +1,11 @@
 package poker.model;
 
 import org.junit.Test;
-import poker.PokerTest;
-import poker.utils.HandBuilder;
+import poker.game.PokerTest;
 
 import static org.junit.Assert.assertEquals;
 
-public class PokerHandTest extends PokerTest{
+public class PokerHandTest extends PokerTest {
 
 //test hand 'test' functions
     @Test
