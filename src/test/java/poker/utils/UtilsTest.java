@@ -7,7 +7,7 @@ import poker.model.Hand;
 
 import static org.junit.Assert.*;
 
-public class HandBuilderTest {
+public class UtilsTest {
 
     Hand handSimpleThreeOfAKind;
 
@@ -24,15 +24,15 @@ public class HandBuilderTest {
     @Test
     public void testParseEulerFormat(){
         String euler = "2H 2D 4C 4D 4S";
-        Hand hand = HandBuilder.parseEulerFormat(euler);
+        Hand hand = Utils.parseEulerFormat(euler);
         assert(hand.getCards().size() == 5);
         assertEquals(hand.getCards(), handSimpleThreeOfAKind.getCards());
     }
 
     @Test
-    public void testWeirdBug(){
+    public void testParseEulerLine(){
         String line = "AD QH TH 9D 8H TS 6D 3S AS AC";
-        Hand[] parsed = HandBuilder.parseEulerLine(line);
+        Hand[] parsed = Utils.parseEulerLine(line);
         assert(parsed[0].getCards().size() == 5);
         assert(parsed[1].getCards().size() == 5);
     }

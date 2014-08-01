@@ -2,13 +2,12 @@ package poker;
 
 import poker.game.Poker;
 import poker.model.Hand;
-import poker.utils.HandBuilder;
+import poker.utils.Utils;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
 
 public class Euler {
 
@@ -17,7 +16,6 @@ public class Euler {
 
     public static void main(String[] args){
         String file  = (args.length == 0) ? eulerHandsFileDefault : args[0];
-        Stream<String> lines;
         try {
             Files.lines(Paths.get(file),Charset.defaultCharset())
                     .forEach(line -> evaluateEuler(line));
@@ -28,9 +26,9 @@ public class Euler {
     }
 
     static void evaluateEuler(String line){
-        Hand[] hands = HandBuilder.parseEulerLine(line);
+        Hand[] hands = Utils.parseEulerLine(line);
         if (hands == null){
-            System.out.println(line);
+            throw new IllegalArgumentException("could not parse: " + line);
         }
         Hand winner = Poker.compareTwoHands(hands[0], hands[1]);
         if (winner != null) {

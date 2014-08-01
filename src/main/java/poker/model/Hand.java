@@ -97,4 +97,11 @@ public class Hand {
     public int hashCode() {
         return cards.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Hand{" +
+                "cards=" + cards +
+                '}';
+    }
 }

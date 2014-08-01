@@ -2,15 +2,21 @@ package poker.model;
 
 import org.junit.Before;
 import org.junit.Test;
-import poker.PokerTest;
-import poker.utils.HandBuilder;
+import poker.utils.Utils;
 
 import java.util.*;
 
 import static org.junit.Assert.*;
 
-public class HandTest extends PokerTest{
+public class HandTest {
 
+    Hand handSimplePair = Utils.parseEulerFormat("2H 2D 4C 5D 7S");
+    Hand handSimpleTwoPair = Utils.parseEulerFormat("2H 2D 4C 4D 8S");
+    Hand handSimpleThreeOfAKind = Utils.parseEulerFormat("2H 2D 4C 4D 4S");
+    Hand handSimpleStraight = Utils.parseEulerFormat("2H 3D 4C 5D 6S");
+    Hand handSimpleFlush = Utils.parseEulerFormat("2H KH 8H 4H JH");
+    Hand handSimpleFullHouse = Utils.parseEulerFormat("2H 2D 4C 4D 4S");
+    Hand handSimpleFourOfAKind = Utils.parseEulerFormat("2H 6H 6C 6D 6S");
     Hand handSimpleThreeOfAKindAddOneAtATime;
 
     @Before
@@ -34,7 +40,7 @@ public class HandTest extends PokerTest{
     @Test
     public void testHandCardsSetEquality(){
         String euler = "2H 2D 4C 4D 4S";
-        Hand hand = HandBuilder.parseEulerFormat(euler);
+        Hand hand = Utils.parseEulerFormat(euler);
         assertEquals(hand.getCards(), handSimpleThreeOfAKindAddOneAtATime.getCards());
     }
 

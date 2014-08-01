@@ -1,16 +1,14 @@
 package poker.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * A PokerHand consists of
  *  - NAME
  *  - description
- *  - function which determines whether a Hand of cards is an instance of it (is my hand a Full House?)
+ *  - test - a function which determines whether a Hand of cards is an instance of this PokerHand
  *  - position (implicit, ordinal - derived from the where it is in the Enum definition - this could be made explicit)
  *  - optionally, a comparator to decide the winner when two hands are the same PokerHand (defaults to highest card)
  * To add a new PokerHand, write a suitable test function and add to the list of enum values in the proper position
@@ -44,13 +42,13 @@ public enum PokerHand {
         this.comparator = comp;
     }
 
-    public static ArrayList<PokerHand> highestToLowest(){
-        //PokerHands[] ordinalOrder = PokerHands.values();
-        ArrayList<PokerHand> ordinalOrder = new ArrayList<PokerHand>(Arrays.asList(PokerHand.values()));
-        ArrayList<PokerHand> highestToLowest = new ArrayList<PokerHand>();
-        for (int i = ordinalOrder.size() - 1; i >= 0; i--){
-            highestToLowest.add(ordinalOrder.get(i));
-        }
+    public static List<PokerHand> highestToLowest(){
+        List<PokerHand> ordinalOrder = Arrays.asList(PokerHand.values());
+        //Collections.reverse(ordinalOrder);
+        //reverse is great but today we use streams!
+        List<PokerHand> highestToLowest = ordinalOrder.stream()
+                .sorted(Comparator.<PokerHand>naturalOrder().reversed())
+                .collect(Collectors.toList());
         return highestToLowest;
     }
 

@@ -11,19 +11,18 @@ public class Poker {
 
     public static PokerHand evaluateHand(Hand hand){
         for(PokerHand pokerHand : PokerHand.highestToLowest()){
-            //System.out.println(pokerHand.ordinal() + " " + pokerHand.name());
             if (pokerHand.test.apply(hand)){
                 return pokerHand;
             }
         }
-        return PokerHand.values()[0];
+        throw new IllegalArgumentException("This hand could not be evaluated: " + hand.toString());
     }
 
     public static Hand compareTwoHands(Hand handOne, Hand handTwo){
         PokerHand handOneRank = evaluateHand(handOne);
         PokerHand handTwoRank = evaluateHand(handTwo);
         if (handOneRank.equals(handTwoRank)){
-            //each hand has custom comparator for this situation ?
+            //each hand has custom comparator for this situation
             int comparison = handOneRank.comparator.compare(handOne, handTwo);
             if (comparison > 0){
                 return handOne;
