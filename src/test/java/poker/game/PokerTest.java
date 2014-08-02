@@ -2,7 +2,6 @@ package poker.game;
 
 import org.junit.Test;
 import poker.model.Hand;
-import poker.model.PokerHand;
 import poker.utils.Utils;
 
 import static org.junit.Assert.assertEquals;
@@ -64,7 +63,7 @@ public class PokerTest {
         return Poker.compareTwoHands(one, two);
     }
 
-    public static PokerHand evaluateHand(Hand hand){
+    public static PokerHandTypes evaluateHand(Hand hand){
         return Poker.evaluateHand(hand);
     }
 
@@ -77,54 +76,54 @@ public class PokerTest {
     //test hand 'test' functions
     @Test
     public void testSimpleHighCard(){
-        assertEquals(true, PokerHand.HIGH_CARD.test.apply(handSimpleHighCard));
-        assertEquals(false, PokerHand.TWO_PAIR.test.apply(handSimpleThreeOfAKind));
-        assertEquals(false, PokerHand.TWO_PAIR.test.apply(handSimplePair));
+        assertEquals(true, PokerHandTypes.HIGH_CARD.test.apply(handSimpleHighCard));
+        assertEquals(false, PokerHandTypes.TWO_PAIR.test.apply(handSimpleThreeOfAKind));
+        assertEquals(false, PokerHandTypes.TWO_PAIR.test.apply(handSimplePair));
     }
 
     @Test
     public void testSimpleTwoPair(){
-        assertEquals(true, PokerHand.TWO_PAIR.test.apply(handSimpleTwoPair));
-        assertEquals(false, PokerHand.TWO_PAIR.test.apply(handSimpleThreeOfAKind));
-        assertEquals(false, PokerHand.TWO_PAIR.test.apply(handSimplePair));
+        assertEquals(true, PokerHandTypes.TWO_PAIR.test.apply(handSimpleTwoPair));
+        assertEquals(false, PokerHandTypes.TWO_PAIR.test.apply(handSimpleThreeOfAKind));
+        assertEquals(false, PokerHandTypes.TWO_PAIR.test.apply(handSimplePair));
     }
 
     @Test
     public void testSimpleThreeOfAKind(){
-        assertEquals(true, PokerHand.THREE_OF_A_KIND.test.apply(handSimpleThreeOfAKind));
-        assertEquals(false, PokerHand.THREE_OF_A_KIND.test.apply(handSimplePair));
-        assertEquals(false, PokerHand.THREE_OF_A_KIND.test.apply(handSimpleTwoPair));
-        assertEquals(false, PokerHand.THREE_OF_A_KIND.test.apply(handSimpleFourOfAKind));
+        assertEquals(true, PokerHandTypes.THREE_OF_A_KIND.test.apply(handSimpleThreeOfAKind));
+        assertEquals(false, PokerHandTypes.THREE_OF_A_KIND.test.apply(handSimplePair));
+        assertEquals(false, PokerHandTypes.THREE_OF_A_KIND.test.apply(handSimpleTwoPair));
+        assertEquals(false, PokerHandTypes.THREE_OF_A_KIND.test.apply(handSimpleFourOfAKind));
     }
 
     @Test
     public void testSimpleStraight(){
-        assertEquals(true, PokerHand.STRAIGHT.test.apply(handSimpleStraight));
+        assertEquals(true, PokerHandTypes.STRAIGHT.test.apply(handSimpleStraight));
     }
 
     @Test
     public void testSimpleFlush(){
-        assertEquals(true, PokerHand.FLUSH.test.apply(handSimpleFlush));
+        assertEquals(true, PokerHandTypes.FLUSH.test.apply(handSimpleFlush));
     }
 
     @Test
     public void testSimpleFullHouse(){
-        assertEquals(true, PokerHand.FULL_HOUSE.test.apply(handSimpleFullHouse));
+        assertEquals(true, PokerHandTypes.FULL_HOUSE.test.apply(handSimpleFullHouse));
     }
 
     @Test
     public void testSimpleFourOfAKind(){
-        assertEquals(true, PokerHand.FOUR_OF_A_KIND.test.apply(handSimpleFourOfAKind));
+        assertEquals(true, PokerHandTypes.FOUR_OF_A_KIND.test.apply(handSimpleFourOfAKind));
     }
 
     @Test
     public void testSimpleStraightFlush(){
-        assertEquals(true, PokerHand.STRAIGHT_FLUSH.test.apply(handSimpleStraightFlush));
+        assertEquals(true, PokerHandTypes.STRAIGHT_FLUSH.test.apply(handSimpleStraightFlush));
     }
 
     @Test
     public void testSimpleRoyalFlush(){
-        assertEquals(true, PokerHand.ROYAL_FLUSH.test.apply(handSimpleRoyalFlush));
+        assertEquals(true, PokerHandTypes.ROYAL_FLUSH.test.apply(handSimpleRoyalFlush));
     }
 
     //correct evaluation - hands of different types
@@ -154,7 +153,7 @@ public class PokerTest {
 
     @Test
     public void testFourOfAKindEvaluates() {
-        assertEquals(PokerHand.FOUR_OF_A_KIND, evaluateHand(handSimpleFourOfAKind));
+        assertEquals(PokerHandTypes.FOUR_OF_A_KIND, evaluateHand(handSimpleFourOfAKind));
     }
 
     @Test

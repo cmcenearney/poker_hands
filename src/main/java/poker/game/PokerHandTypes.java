@@ -1,4 +1,7 @@
-package poker.model;
+package poker.game;
+
+import poker.model.Hand;
+import poker.model.Rank;
 
 import java.util.*;
 import java.util.function.Function;
@@ -13,41 +16,41 @@ import java.util.stream.Collectors;
  *  - optionally, a comparator to decide the winner when two hands are the same PokerHand (defaults to highest card)
  * To add a new PokerHand, write a suitable test function and add to the list of enum values in the proper position
  */
-public enum PokerHand {
+public enum PokerHandTypes {
 
-    HIGH_CARD("Highest value card", PokerHand::isHighCard),
-    ONE_PAIR("Two cards of the same value", PokerHand::isOnePair, PokerHand::compareOnePairHands),
-    TWO_PAIR("Two different pairs", PokerHand::isTwoPair, PokerHand::compareTwoPairHands),
-    THREE_OF_A_KIND("Three cards of the same value", PokerHand::isThreeOfAKind, PokerHand::compareThreeOfAKindHands),
-    STRAIGHT("All cards are consecutive values", PokerHand::isStraight),
-    FLUSH("All cards of the same suit", PokerHand::isFlush),
-    FULL_HOUSE("Three of a kind and a pair", PokerHand::isFullHouse, PokerHand::compareFullHouseHands),
-    FOUR_OF_A_KIND("Four cards of the same value", PokerHand::isFourOfAKind, PokerHand::compareFourOfAKindHands),
-    STRAIGHT_FLUSH("All cards are consecutive values of same suit", PokerHand::isStraightFlush),
-    ROYAL_FLUSH(" Ten, Jack, Queen, King, Ace, in same suit", PokerHand::isRoyalFlush);
+    HIGH_CARD("Highest value card", PokerHandTypes::isHighCard),
+    ONE_PAIR("Two cards of the same value", PokerHandTypes::isOnePair, PokerHandTypes::compareOnePairHands),
+    TWO_PAIR("Two different pairs", PokerHandTypes::isTwoPair, PokerHandTypes::compareTwoPairHands),
+    THREE_OF_A_KIND("Three cards of the same value", PokerHandTypes::isThreeOfAKind, PokerHandTypes::compareThreeOfAKindHands),
+    STRAIGHT("All cards are consecutive values", PokerHandTypes::isStraight),
+    FLUSH("All cards of the same suit", PokerHandTypes::isFlush),
+    FULL_HOUSE("Three of a kind and a pair", PokerHandTypes::isFullHouse, PokerHandTypes::compareFullHouseHands),
+    FOUR_OF_A_KIND("Four cards of the same value", PokerHandTypes::isFourOfAKind, PokerHandTypes::compareFourOfAKindHands),
+    STRAIGHT_FLUSH("All cards are consecutive values of same suit", PokerHandTypes::isStraightFlush),
+    ROYAL_FLUSH(" Ten, Jack, Queen, King, Ace, in same suit", PokerHandTypes::isRoyalFlush);
 
     public final String description;
     public final Function<Hand, Boolean> test;
     public final Comparator<Hand> comparator;
 
-    PokerHand(String description, Function<Hand, Boolean> test){
+    PokerHandTypes(String description, Function<Hand, Boolean> test){
         this.description = description;
         this.test = test;
-        this.comparator = PokerHand::compareByHighCard;
+        this.comparator = PokerHandTypes::compareByHighCard;
     }
 
-    PokerHand(String description, Function<Hand, Boolean> test, Comparator<Hand> comp){
+    PokerHandTypes(String description, Function<Hand, Boolean> test, Comparator<Hand> comp){
         this.description = description;
         this.test = test;
         this.comparator = comp;
     }
 
-    public static List<PokerHand> highestToLowest(){
-        List<PokerHand> ordinalOrder = Arrays.asList(PokerHand.values());
+    public static List<PokerHandTypes> highestToLowest(){
+        List<PokerHandTypes> ordinalOrder = Arrays.asList(PokerHandTypes.values());
         //Collections.reverse(ordinalOrder);
         //reverse is great but today we use streams!
-        List<PokerHand> highestToLowest = ordinalOrder.stream()
-                .sorted(Comparator.<PokerHand>naturalOrder().reversed())
+        List<PokerHandTypes> highestToLowest = ordinalOrder.stream()
+                .sorted(Comparator.<PokerHandTypes>naturalOrder().reversed())
                 .collect(Collectors.toList());
         return highestToLowest;
     }

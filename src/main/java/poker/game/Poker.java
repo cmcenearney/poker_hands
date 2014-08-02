@@ -1,26 +1,23 @@
 package poker.game;
 
 import poker.model.Hand;
-import poker.model.PokerHand;
-
-import java.util.List;
 
 public class Poker {
 
     Poker(){}
 
-    public static PokerHand evaluateHand(Hand hand){
-        for(PokerHand pokerHand : PokerHand.highestToLowest()){
-            if (pokerHand.test.apply(hand)){
-                return pokerHand;
+    public static PokerHandTypes evaluateHand(Hand hand){
+        for(PokerHandTypes pokerHandTypes : PokerHandTypes.highestToLowest()){
+            if (pokerHandTypes.test.apply(hand)){
+                return pokerHandTypes;
             }
         }
         throw new IllegalArgumentException("This hand could not be evaluated: " + hand.toString());
     }
 
     public static Hand compareTwoHands(Hand handOne, Hand handTwo){
-        PokerHand handOneRank = evaluateHand(handOne);
-        PokerHand handTwoRank = evaluateHand(handTwo);
+        PokerHandTypes handOneRank = evaluateHand(handOne);
+        PokerHandTypes handTwoRank = evaluateHand(handTwo);
         if (handOneRank.equals(handTwoRank)){
             //each hand has custom comparator for this situation
             int comparison = handOneRank.comparator.compare(handOne, handTwo);
