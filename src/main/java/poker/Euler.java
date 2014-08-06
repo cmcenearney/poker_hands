@@ -14,26 +14,26 @@ public class Euler {
     static final String eulerHandsFileDefault = "src/main/resources/euler_hands.txt";
     static int playerOneWins = 0;
 
-    public static void main(String[] args){
-        String file  = (args.length == 0) ? eulerHandsFileDefault : args[0];
-        try {
-            Files.lines(Paths.get(file),Charset.defaultCharset())
-                    .forEach(line -> evaluateEuler(line));
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-        System.out.println(playerOneWins);
-    }
+//    public static void main(String[] args){
+//        String file  = (args.length == 0) ? eulerHandsFileDefault : args[0];
+//        try {
+//            Files.lines(Paths.get(file),Charset.defaultCharset())
+//                    .forEach(line -> evaluateEuler(line));
+//        } catch (IOException e){
+//            e.printStackTrace();
+//        }
+//        System.out.println(playerOneWins);
+//    }
 
-    static void evaluateEuler(String line){
-        Hand[] hands = Utils.parseEulerLine(line);
-        if (hands == null){
-            throw new IllegalArgumentException("could not parse: " + line);
-        }
-        int winner = Poker.compareTwoHands(hands[0], hands[1]);
-        if (winner == 1){
-                playerOneWins++;
-        }
-    }
+//    static void evaluateEuler(String line){
+//        Hand[] hands = Utils.parseEulerLine(line);
+//        if (hands == null){
+//            throw new IllegalArgumentException("could not parse: " + line);
+//        }
+//        int winner = Poker.compareTwoHands(hands[0], hands[1]);
+//        if (winner == 1){
+//                playerOneWins++;
+//        }
+//    }
 
 }

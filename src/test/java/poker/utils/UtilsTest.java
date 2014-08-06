@@ -2,6 +2,9 @@ package poker.utils;
 
 import org.junit.Before;
 import org.junit.Test;
+import poker.game.HandRankInterface;
+import poker.game.OnePair;
+import poker.game.PokerHandTypes;
 import poker.model.Card;
 import poker.model.Hand;
 
@@ -35,6 +38,19 @@ public class UtilsTest {
         Hand[] parsed = Utils.parseEulerLine(line);
         assert(parsed[0].getCards().size() == 5);
         assert(parsed[1].getCards().size() == 5);
+    }
+
+    @Test
+    public void deleteThisTest(){
+        Class c = PokerHandTypes.ONE_PAIR.evaluator;
+        Class b = PokerHandTypes.values()[0].evaluator;
+        HandRankInterface i = new OnePair();
+        try {
+            i = (HandRankInterface) b.newInstance();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        i.tester();
     }
 
 }

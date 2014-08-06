@@ -73,6 +73,11 @@ public class PokerTest {
         return Poker.evaluateHand(hand);
     }
 
+    public static boolean applyTest(PokerHandTypes handType, Hand hand) throws Exception{
+        HandRankInterface i = handType.evaluator.newInstance();
+        return i.test(hand);
+    }
+
     @Test
     public void basicTest() {
         Hand handSimpleThreeOfAKind = Utils.parseEulerFormat("2H 2D 4C 4D 4S");
