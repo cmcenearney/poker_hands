@@ -7,11 +7,11 @@ import java.util.TreeSet;
 
 public class OnePair implements PokerHand{
 
-    public static boolean test(Hand hand){
+    public boolean test(Hand hand){
         return hand.ranksByCount(2).size() == 1;
     }
 
-    public static int compareTwoHands(Hand one, Hand two){
+    public int compareTwoHands(Hand one, Hand two){
         TreeSet<Rank> handOnePairRanksSet = one.ranksByCount(2);
         Rank[] handOnePairRanks =  handOnePairRanksSet.toArray(new Rank[handOnePairRanksSet.size()]);
         Rank handOneHighPairRank = handOnePairRanks[handOnePairRanksSet.size() - 1];

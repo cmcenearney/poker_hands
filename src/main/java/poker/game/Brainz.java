@@ -9,7 +9,7 @@ public class Brainz {
 
     public PokerHands evaluateHand(Hand hand){
         for(PokerHands pokerHand : PokerHands.highestToLowest()){
-            if (pokerHand.handClass.test )){
+            if (pokerHand.handClass.test(pokerHand )){
                 return pokerHand;
             }
         }

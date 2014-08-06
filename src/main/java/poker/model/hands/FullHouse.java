@@ -1,4 +1,4 @@
 package poker.model.hands;
 
-public class FullHouse implements PokerHand {
+public class  FullHouse implements PokerHand {
 }

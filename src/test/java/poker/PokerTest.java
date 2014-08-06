@@ -1,6 +1,8 @@
 package poker;
 
+import org.junit.Test;
 import poker.model.Hand;
+import poker.model.hands.PokerHands;
 import poker.utils.HandBuilder;
 
 public class PokerTest {
@@ -23,5 +25,10 @@ public class PokerTest {
     public Hand handFullHouseAceThree = HandBuilder.parseEulerFormat("AD AC AH 3D 3S");
 
     public PokerTest(){}
+
+    @Test
+    public void testSimplePairTest(){
+        PokerHands.ONE_PAIR.compareTo(handSimplePair);
+    }
 
 }
