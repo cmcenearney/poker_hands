@@ -60,7 +60,13 @@ public class PokerTest {
 
     //isolate tests from implementation
     public static Hand compareTwoHands(Hand one, Hand two){
-        return Poker.compareTwoHands(one, two);
+        //return Poker.compareTwoHands(one, two);
+        if (Poker.compareTwoHands(one, two) > 0 ) {
+            return one;
+        } else if (Poker.compareTwoHands(one, two) < 0){
+            return two;
+        }
+        return null;
     }
 
     public static PokerHandTypes evaluateHand(Hand hand){

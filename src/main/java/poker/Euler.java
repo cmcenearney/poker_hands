@@ -30,9 +30,8 @@ public class Euler {
         if (hands == null){
             throw new IllegalArgumentException("could not parse: " + line);
         }
-        Hand winner = Poker.compareTwoHands(hands[0], hands[1]);
-        if (winner != null) {
-            if (winner.equals(hands[0]))
+        int winner = Poker.compareTwoHands(hands[0], hands[1]);
+        if (winner == 1){
                 playerOneWins++;
         }
     }
