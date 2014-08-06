@@ -44,37 +44,37 @@ public class HandTest {
         assertEquals(hand.getCards(), handSimpleThreeOfAKindAddOneAtATime.getCards());
     }
 
-    @Test
-    public void testCountedRanks(){
-        HashMap<Rank, Integer> countedRanks = handSimpleThreeOfAKind.countedRanks();
-        assert(2 == countedRanks.get(Rank.TWO));
-        assert(3 == countedRanks.get(Rank.FOUR));
-        assertNull(countedRanks.get(Rank.ACE));
-        assertNull(countedRanks.get(Rank.JACK));
-    }
+//    @Test
+//    public void testCountedRanks(){
+//        HashMap<Rank, Integer> countedRanks = handSimpleThreeOfAKind.countedRanks();
+//        assert(2 == countedRanks.get(Rank.TWO));
+//        assert(3 == countedRanks.get(Rank.FOUR));
+//        assertNull(countedRanks.get(Rank.ACE));
+//        assertNull(countedRanks.get(Rank.JACK));
+//    }
 
     @Test
     public void testRanksByCountSimplePair(){
         Set<Rank> expected = EnumSet.of(Rank.TWO);
-        assertEquals(expected, handSimplePair.ranksByCount(2));
+        assertEquals(expected, handSimplePair.getRanksByCount(2));
     }
 
     @Test
     public void testRanksByCountTwoPair(){
         Set<Rank> expected = EnumSet.of(Rank.TWO, Rank.FOUR);
-        assertEquals(expected, handSimpleTwoPair.ranksByCount(2));
+        assertEquals(expected, handSimpleTwoPair.getRanksByCount(2));
     }
 
     @Test
     public void testRanksByCountThreeOfAKind(){
         Set<Rank> expected = EnumSet.of(Rank.FOUR);
-        assertEquals(expected, handSimpleThreeOfAKind.ranksByCount(3));
+        assertEquals(expected, handSimpleThreeOfAKind.getRanksByCount(3));
     }
 
     @Test
     public void testRanksByCountFourOfAKind(){
         Set<Rank> expected = EnumSet.of(Rank.SIX);
-        assertEquals(expected, handSimpleFourOfAKind.ranksByCount(4));
+        assertEquals(expected, handSimpleFourOfAKind.getRanksByCount(4));
     }
 
     @Test

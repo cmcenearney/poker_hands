@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 public class Hand {
 
     TreeSet<Card> cards = new TreeSet<>();
-    HashMap<Integer, Set<Rank>> ranksByCountHash = new HashMap<>();
+    HashMap<Integer, TreeSet<Rank>> ranksByCountHash = new HashMap<>();
 
     public Hand (){}
 
@@ -23,14 +23,22 @@ public class Hand {
 
     public void initRanksByCountHash(){
         IntStream.rangeClosed(1, 4)
-                .forEach(i -> ranksByCountHash.put(i, ranksByCount(i)));
+                .forEach(i -> ranksByCountHash.put(i, calculateRanksByCount(i)));
     }
 
-    public HashMap<Integer, Set<Rank>> getRanksByCountHash() {
+    public HashMap<Integer, TreeSet<Rank>> getRanksByCountHash() {
         return ranksByCountHash;
     }
 
-    public HashMap<Rank, Integer> countedRanks(){
+    public Integer numberOfRanksWithCount(Integer count){
+        return ranksByCountHash.get(count).size();
+    }
+
+    public TreeSet<Rank> getRanksByCount(Integer count){
+        return ranksByCountHash.get(count);
+    }
+
+    private HashMap<Rank, Integer> countedRanks(){
         HashMap<Rank, Integer> ranksWithCounts = new HashMap<>();
         for (Card card : cards){
             Rank rank = card.getRank();
@@ -45,8 +53,8 @@ public class Hand {
         return ranksWithCounts;
     }
 
-    public TreeSet<Rank> ranksByCount(Integer count){
-        return new TreeSet<>(
+    private TreeSet<Rank> calculateRanksByCount(Integer count){
+        return new TreeSet<Rank>(
             countedRanks().entrySet().stream()
                 .filter(e -> e.getValue().equals(count))
                 .map(e -> e.getKey())
@@ -68,7 +76,7 @@ public class Hand {
     }
 
     public boolean isOfAKind(int n){
-        return !ranksByCount(n).isEmpty();
+        return numberOfRanksWithCount(n) != 0;
     }
 
     public boolean isAllOneSuit(){

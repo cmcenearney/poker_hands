@@ -28,11 +28,11 @@ public class PokerHandComparators {
     }
 
     public static int compareOnePairHands(Hand one, Hand two){
-        TreeSet<Rank> handOnePairRanksSet = one.ranksByCount(2);
+        TreeSet<Rank> handOnePairRanksSet = one.getRanksByCount(2);
         Rank[] handOnePairRanks =  handOnePairRanksSet.toArray(new Rank[handOnePairRanksSet.size()]);
         Rank handOneHighPairRank = handOnePairRanks[handOnePairRanksSet.size() - 1];
 
-        TreeSet<Rank> handTwoPairRanksSet = two.ranksByCount(2);
+        TreeSet<Rank> handTwoPairRanksSet = two.getRanksByCount(2);
         Rank[] handTwoPairRanks =  handTwoPairRanksSet.toArray(new Rank[handTwoPairRanksSet.size()]);
         Rank handTwoHighPairRank = handTwoPairRanks[handTwoPairRanksSet.size() - 1];
 
@@ -49,11 +49,11 @@ public class PokerHandComparators {
 
     public static int compareTwoPairHands(Hand one, Hand two){
 
-        TreeSet<Rank> handOnePairRanksSet = one.ranksByCount(2);
+        TreeSet<Rank> handOnePairRanksSet = one.getRanksByCount(2);
         Rank[] handOnePairRanks =  handOnePairRanksSet.toArray(new Rank[handOnePairRanksSet.size()]);
         Rank handOneHighPairRank = handOnePairRanks[handOnePairRanksSet.size() - 1];
         Rank handOneLowPairRank = handOnePairRanks[handOnePairRanksSet.size() - 2];
-        TreeSet<Rank> handTwoPairRanksSet = two.ranksByCount(2);
+        TreeSet<Rank> handTwoPairRanksSet = two.getRanksByCount(2);
         Rank[] handTwoPairRanks =  handTwoPairRanksSet.toArray(new Rank[handTwoPairRanksSet.size()]);
         Rank handTwoHighPairRank = handTwoPairRanks[handTwoPairRanksSet.size() - 1];
         Rank handTwoLowPairRank = handTwoPairRanks[handTwoPairRanksSet.size() - 2];
@@ -73,11 +73,11 @@ public class PokerHandComparators {
 
 
     public static int compareThreeOfAKindHands(Hand one, Hand two){
-        TreeSet<Rank> handOneThreeRanksSet = one.ranksByCount(3);
+        TreeSet<Rank> handOneThreeRanksSet = one.getRanksByCount(3);
         Rank[] handOneThreeRanks =  handOneThreeRanksSet.toArray(new Rank[handOneThreeRanksSet.size()]);
         Rank handOneHighThreeRank = handOneThreeRanks[handOneThreeRanksSet.size() - 1];
 
-        TreeSet<Rank> handTwoThreeRanksSet = two.ranksByCount(3);
+        TreeSet<Rank> handTwoThreeRanksSet = two.getRanksByCount(3);
         Rank[] handTwoThreeRanks =  handTwoThreeRanksSet.toArray(new Rank[handTwoThreeRanksSet.size()]);
         Rank handTwoHighThreeRank = handTwoThreeRanks[handTwoThreeRanksSet.size() - 1];
 
@@ -94,11 +94,11 @@ public class PokerHandComparators {
     }
 
     public static int compareFourOfAKindHands(Hand one, Hand two){
-        TreeSet<Rank> handOneThreeRanksSet = one.ranksByCount(4);
+        TreeSet<Rank> handOneThreeRanksSet = one.getRanksByCount(4);
         Rank[] handOneThreeRanks =  handOneThreeRanksSet.toArray(new Rank[handOneThreeRanksSet.size()]);
         Rank handOneHighThreeRank = handOneThreeRanks[handOneThreeRanksSet.size() - 1];
 
-        TreeSet<Rank> handTwoThreeRanksSet = two.ranksByCount(4);
+        TreeSet<Rank> handTwoThreeRanksSet = two.getRanksByCount(4);
         Rank[] handTwoThreeRanks =  handTwoThreeRanksSet.toArray(new Rank[handTwoThreeRanksSet.size()]);
         Rank handTwoHighThreeRank = handTwoThreeRanks[handTwoThreeRanksSet.size() - 1];
 
@@ -109,13 +109,13 @@ public class PokerHandComparators {
     }
 
     public static int compareFullHouseHands(Hand one, Hand two){
-        Rank handOneThreeCardRank = (Rank) one.ranksByCount(3).toArray()[0];
-        Rank handTwoThreeCardRank = (Rank) two.ranksByCount(3).toArray()[0];
+        Rank handOneThreeCardRank = (Rank) one.getRanksByCount(3).toArray()[0];
+        Rank handTwoThreeCardRank = (Rank) two.getRanksByCount(3).toArray()[0];
         if ( handOneThreeCardRank.position() > handTwoThreeCardRank.position() ) return 1;
         if ( handOneThreeCardRank.position() < handTwoThreeCardRank.position() ) return -1;
         if ( handOneThreeCardRank.position() == handTwoThreeCardRank.position() ) {
-            Rank handOneTwoCardRank = (Rank) one.ranksByCount(2).toArray()[0];
-            Rank handTwoTwoCardRank = (Rank) two.ranksByCount(2).toArray()[0];
+            Rank handOneTwoCardRank = (Rank) one.getRanksByCount(2).toArray()[0];
+            Rank handTwoTwoCardRank = (Rank) two.getRanksByCount(2).toArray()[0];
             if ( handOneTwoCardRank.position() > handTwoTwoCardRank.position() ) return 1;
             if ( handOneTwoCardRank.position() < handTwoTwoCardRank.position() ) return -1;
         }

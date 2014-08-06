@@ -3,8 +3,6 @@ package poker;
 import poker.game.Poker;
 import poker.model.Card;
 import poker.model.Hand;
-
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;

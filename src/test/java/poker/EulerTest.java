@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import poker.model.Card;
 import poker.model.Hand;
-
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
