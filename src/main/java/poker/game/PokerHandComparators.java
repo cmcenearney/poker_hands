@@ -39,9 +39,9 @@ public class PokerHandComparators {
         if ( handOneHighPairRank.position() > handTwoHighPairRank.position() ) return 1;
         if ( handOneHighPairRank.position() < handTwoHighPairRank.position() ) return -1;
 
-        TreeSet<Rank> oneRemainder = one.ranks();
+        TreeSet<Rank> oneRemainder = one.getRanks();
         oneRemainder.removeAll(handOnePairRanksSet);
-        TreeSet<Rank> twoRemainder = two.ranks();
+        TreeSet<Rank> twoRemainder = two.getRanks();
         twoRemainder.removeAll(handTwoPairRanksSet);
 
         return compareRemainingRanks(oneRemainder, twoRemainder);
@@ -53,19 +53,22 @@ public class PokerHandComparators {
         Rank[] handOnePairRanks =  handOnePairRanksSet.toArray(new Rank[handOnePairRanksSet.size()]);
         Rank handOneHighPairRank = handOnePairRanks[handOnePairRanksSet.size() - 1];
         Rank handOneLowPairRank = handOnePairRanks[handOnePairRanksSet.size() - 2];
+
         TreeSet<Rank> handTwoPairRanksSet = two.getRanksByCount(2);
         Rank[] handTwoPairRanks =  handTwoPairRanksSet.toArray(new Rank[handTwoPairRanksSet.size()]);
         Rank handTwoHighPairRank = handTwoPairRanks[handTwoPairRanksSet.size() - 1];
         Rank handTwoLowPairRank = handTwoPairRanks[handTwoPairRanksSet.size() - 2];
+
         if ( handOneHighPairRank.position() > handTwoHighPairRank.position() ) return 1;
         if ( handOneHighPairRank.position() < handTwoHighPairRank.position() ) return -1;
+
         if ( handOneHighPairRank.position() == handTwoHighPairRank.position() ) {
             if ( handOneLowPairRank.position() > handTwoLowPairRank.position() ) return 1;
             if ( handOneLowPairRank.position() < handTwoLowPairRank.position() ) return -1;
         }
-        TreeSet<Rank> oneRemainder = one.ranks();
+        TreeSet<Rank> oneRemainder = one.getRanks();
         oneRemainder.removeAll(handOnePairRanksSet);
-        TreeSet<Rank> twoRemainder = two.ranks();
+        TreeSet<Rank> twoRemainder = two.getRanks();
         twoRemainder.removeAll(handTwoPairRanksSet);
 
         return compareRemainingRanks(oneRemainder, twoRemainder);
@@ -84,9 +87,9 @@ public class PokerHandComparators {
         if ( handOneHighThreeRank.position() > handTwoHighThreeRank.position() ) return 1;
         if ( handOneHighThreeRank.position() < handTwoHighThreeRank.position() ) return -1;
 
-        TreeSet<Rank> oneRemainder = one.ranks();
+        TreeSet<Rank> oneRemainder = one.getRanks();
         oneRemainder.removeAll(handOneThreeRanksSet);
-        TreeSet<Rank> twoRemainder = two.ranks();
+        TreeSet<Rank> twoRemainder = two.getRanks();
         twoRemainder.removeAll(handTwoThreeRanksSet);
 
         return compareRemainingRanks(oneRemainder, twoRemainder);

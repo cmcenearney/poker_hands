@@ -9,19 +9,20 @@ public class Hand {
     TreeSet<Card> cards = new TreeSet<>();
     HashMap<Integer, TreeSet<Rank>> ranksByCountHash = new HashMap<>();
 
-    public Hand (){}
+    public Hand() {
+    }
 
-    public Hand (List<Card> cards){
+    public Hand(List<Card> cards) {
         try {
             this.cards.addAll(cards);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println("could not add all cards to the set of cards in this hand");
             e.printStackTrace();
         }
-        initRanksByCountHash();
+        calculateRanksByCountHash();
     }
 
-    public void initRanksByCountHash(){
+    public void calculateRanksByCountHash() {
         IntStream.rangeClosed(1, 4)
                 .forEach(i -> ranksByCountHash.put(i, calculateRanksByCount(i)));
     }
@@ -30,19 +31,19 @@ public class Hand {
         return ranksByCountHash;
     }
 
-    public Integer numberOfRanksWithCount(Integer count){
+    public Integer numberOfRanksWithCount(Integer count) {
         return ranksByCountHash.get(count).size();
     }
 
-    public TreeSet<Rank> getRanksByCount(Integer count){
+    public TreeSet<Rank> getRanksByCount(Integer count) {
         return ranksByCountHash.get(count);
     }
 
-    private HashMap<Rank, Integer> countedRanks(){
+    private HashMap<Rank, Integer> countedRanks() {
         HashMap<Rank, Integer> ranksWithCounts = new HashMap<>();
-        for (Card card : cards){
+        for (Card card : cards) {
             Rank rank = card.getRank();
-            if (ranksWithCounts.containsKey(rank)){
+            if (ranksWithCounts.containsKey(rank)) {
                 Integer count = ranksWithCounts.get(rank);
                 count++;
                 ranksWithCounts.put(rank, count);
@@ -53,33 +54,36 @@ public class Hand {
         return ranksWithCounts;
     }
 
-    private TreeSet<Rank> calculateRanksByCount(Integer count){
+    private TreeSet<Rank> calculateRanksByCount(Integer count) {
         return new TreeSet<Rank>(
-            countedRanks().entrySet().stream()
-                .filter(e -> e.getValue().equals(count))
-                .map(e -> e.getKey())
-                .collect(Collectors.toSet())
+                countedRanks().entrySet().stream()
+                        .filter(e -> e.getValue().equals(count))
+                        .map(e -> e.getKey())
+                        .collect(Collectors.toSet())
         );
     }
 
-    public Integer totalCardsInRanksByCount(){
+    public Integer totalCardsInRanksByCount() {
         Integer total = ranksByCountHash.entrySet().stream()
                 .map(e -> e.getValue().size())
-                .reduce(0, (a,b) -> a + b);
+                .reduce(0, (a, b) -> a + b);
         return total;
     }
 
-    public TreeSet<Rank> ranks(){
-        return new TreeSet<>(
-            countedRanks().keySet()
+    public TreeSet<Rank> getRanks() {
+        return new TreeSet<Rank>(
+                cards.stream()
+                        .map(c -> c.getRank())
+                        .distinct()
+                        .collect(Collectors.toSet())
         );
     }
 
-    public boolean isOfAKind(int n){
+    public boolean isOfAKind(int n) {
         return numberOfRanksWithCount(n) != 0;
     }
 
-    public boolean isAllOneSuit(){
+    public boolean isAllOneSuit() {
         return (cards.stream()
                 .map(c -> c.getSuit())
                 .distinct()
@@ -87,11 +91,11 @@ public class Hand {
                 == 1);
     }
 
-    public boolean isAStraight(){
+    public boolean isAStraight() {
         int previousCard = cards.first().getRank().position() - 1;
-        for (Card card : cards){
+        for (Card card : cards) {
             int currentCard = card.getRank().position();
-            if (currentCard - previousCard != 1){
+            if (currentCard - previousCard != 1) {
                 return false;
             }
             previousCard = currentCard;
@@ -99,22 +103,20 @@ public class Hand {
         return true;
     }
 
-    public void addCard(Card card){
+    public void addCard(Card card) {
         cards.add(card);
-        if(totalCardsInRanksByCount() != cards.size()){
-            initRanksByCountHash();
+        if (totalCardsInRanksByCount() != cards.size()) {
+            calculateRanksByCountHash();
         }
     }
 
-
-    public Card getHighestCard(){
+    public Card getHighestCard() {
         return cards.last();
     }
 
     public TreeSet<Card> getCards() {
         return cards;
     }
-
 
     @Override
     public boolean equals(Object o) {
