@@ -3,7 +3,4 @@ Poker Hands
 
 This is a Java 8 solution to the [Project Euler poker problem](https://projecteuler.net/problem=54).
  
-(Note: IDEs do not always default to the 8.0 language level)
-
-
-
+The goal is to explore new features, particularly lambdas, and implement something akin to the Strategy pattern.

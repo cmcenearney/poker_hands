@@ -8,24 +8,24 @@ or by including a value
  */
 public enum Rank {
 
-    TWO("Two", "2", 0),
-    THREE("Three", "3", 1),
-    FOUR("Four", "4", 2),
-    FIVE("Five", "5", 3),
-    SIX("Six", "6", 4),
-    SEVEN("Seven", "7", 5),
-    EIGHT("Eight", "8", 6),
-    NINE("Nine", "9", 7),
-    TEN("Ten", "T", 8),
-    JACK("Jack", "J", 9),
-    QUEEN("Queen", "Q", 10),
-    KING("King", "K", 11),
-    ACE("Ace", "A", 12);
+    TWO("Two", "2"),
+    THREE("Three", "3"),
+    FOUR("Four", "4"),
+    FIVE("Five", "5"),
+    SIX("Six", "6"),
+    SEVEN("Seven", "7"),
+    EIGHT("Eight", "8"),
+    NINE("Nine", "9"),
+    TEN("Ten", "T"),
+    JACK("Jack", "J"),
+    QUEEN("Queen", "Q"),
+    KING("King", "K"),
+    ACE("Ace", "A");
 
     private String label;
     private String abbrev;
 
-    Rank(String label, String abbrev, Integer value) {
+    Rank(String label, String abbrev) {
         this.label = label;
         this.abbrev = abbrev;
     }
