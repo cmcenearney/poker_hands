@@ -1,11 +1,13 @@
 package poker.model;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Hand {
 
     TreeSet<Card> cards = new TreeSet<>();
-    HashMap<Integer, Set<Rank>> ranksByCnt = new HashMap<>();
+    HashMap<Integer, Set<Rank>> ranksByCountHash = new HashMap<>();
 
     public Hand (){}
 
@@ -16,6 +18,16 @@ public class Hand {
             System.out.println("could not add all cards to the set of cards in this hand");
             e.printStackTrace();
         }
+        initRanksByCountHash();
+    }
+
+    public void initRanksByCountHash(){
+        IntStream.rangeClosed(1, 4)
+                .forEach(i -> ranksByCountHash.put(i, ranksByCount(i)));
+    }
+
+    public HashMap<Integer, Set<Rank>> getRanksByCountHash() {
+        return ranksByCountHash;
     }
 
     public HashMap<Rank, Integer> countedRanks(){
@@ -34,17 +46,25 @@ public class Hand {
     }
 
     public TreeSet<Rank> ranksByCount(Integer count){
-        TreeSet<Rank> ranks =  new TreeSet<Rank>();
-        countedRanks().entrySet().stream()
+        return new TreeSet<>(
+            countedRanks().entrySet().stream()
                 .filter(e -> e.getValue().equals(count))
-                .forEach(e -> ranks.add(e.getKey()));
-        return ranks;
+                .map(e -> e.getKey())
+                .collect(Collectors.toSet())
+        );
+    }
+
+    public Integer totalCardsInRanksByCount(){
+        Integer total = ranksByCountHash.entrySet().stream()
+                .map(e -> e.getValue().size())
+                .reduce(0, (a,b) -> a + b);
+        return total;
     }
 
     public TreeSet<Rank> ranks(){
-        TreeSet<Rank> ranks = new TreeSet<>();
-        ranks.addAll(countedRanks().keySet());
-        return ranks;
+        return new TreeSet<>(
+            countedRanks().keySet()
+        );
     }
 
     public boolean isOfAKind(int n){
@@ -52,9 +72,11 @@ public class Hand {
     }
 
     public boolean isAllOneSuit(){
-        Set<Suit> suits = new HashSet<Suit>();
-        cards.stream().forEach(c -> suits.add(c.getSuit()));
-        return suits.size() == 1;
+        return (cards.stream()
+                .map(c -> c.getSuit())
+                .distinct()
+                .count()
+                == 1);
     }
 
     public boolean isAStraight(){
@@ -71,7 +93,11 @@ public class Hand {
 
     public void addCard(Card card){
         cards.add(card);
+        if(totalCardsInRanksByCount() != cards.size()){
+            initRanksByCountHash();
+        }
     }
+
 
     public Card getHighestCard(){
         return cards.last();

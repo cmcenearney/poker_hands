@@ -1,62 +1,61 @@
 package poker.game;
 
 import org.junit.Test;
+import poker.Euler;
 import poker.model.Hand;
-import poker.utils.Utils;
-
 import static org.junit.Assert.assertEquals;
 
 public class PokerTest {
 
-    public Hand handSimpleHighCard = Utils.parseEulerFormat("2H 5D 7C 9D AS");
-    public Hand handSimplePair = Utils.parseEulerFormat("2H 2D 4C 5D 7S");
-    public Hand handSimpleTwoPair = Utils.parseEulerFormat("2H 2D 4C 4D 8S");
-    public Hand handSimpleThreeOfAKind = Utils.parseEulerFormat("2H 2D 4C 4D 4S");
-    public Hand handSimpleStraight = Utils.parseEulerFormat("2H 3D 4C 5D 6S");
-    public Hand handSimpleFlush = Utils.parseEulerFormat("2H KH 8H 4H JH");
-    public Hand handSimpleFullHouse = Utils.parseEulerFormat("2H 2D 4C 4D 4S");
-    public Hand handSimpleFourOfAKind = Utils.parseEulerFormat("2H 6H 6C 6D 6S");
-    public Hand handSimpleStraightFlush = Utils.parseEulerFormat("7C 8C 4C 5C 6C");
-    public Hand handSimpleRoyalFlush = Utils.parseEulerFormat("AD JD QD KD TD");
+    public Hand handSimpleHighCard = Euler.parseEulerFormat("2H 5D 7C 9D AS");
+    public Hand handSimplePair = Euler.parseEulerFormat("2H 2D 4C 5D 7S");
+    public Hand handSimpleTwoPair = Euler.parseEulerFormat("2H 2D 4C 4D 8S");
+    public Hand handSimpleThreeOfAKind = Euler.parseEulerFormat("2H 2D 4C 4D 4S");
+    public Hand handSimpleStraight = Euler.parseEulerFormat("2H 3D 4C 5D 6S");
+    public Hand handSimpleFlush = Euler.parseEulerFormat("2H KH 8H 4H JH");
+    public Hand handSimpleFullHouse = Euler.parseEulerFormat("2H 2D 4C 4D 4S");
+    public Hand handSimpleFourOfAKind = Euler.parseEulerFormat("2H 6H 6C 6D 6S");
+    public Hand handSimpleStraightFlush = Euler.parseEulerFormat("7C 8C 4C 5C 6C");
+    public Hand handSimpleRoyalFlush = Euler.parseEulerFormat("AD JD QD KD TD");
 
-    public Hand handOnePairJack = Utils.parseEulerFormat("2H 7D 4C JD JS");
-    public Hand handOnePairNine = Utils.parseEulerFormat("9H 2D 4C 9D AS");
+    public Hand handOnePairJack = Euler.parseEulerFormat("2H 7D 4C JD JS");
+    public Hand handOnePairNine = Euler.parseEulerFormat("9H 2D 4C 9D AS");
 
-    public Hand handTwoPairKingQueen = Utils.parseEulerFormat("QD QS 3C KS KH");
-    public Hand handTwoPairKingFour = Utils.parseEulerFormat("KD KC AH 4D 4S");
+    public Hand handTwoPairKingQueen = Euler.parseEulerFormat("QD QS 3C KS KH");
+    public Hand handTwoPairKingFour = Euler.parseEulerFormat("KD KC AH 4D 4S");
 
-    public Hand handThreeOfAKindQueen = Utils.parseEulerFormat("QD QS QC KS 6H");
-    public Hand handThreeOfAKindFour = Utils.parseEulerFormat("AD 3C 4H 4D 4S");
+    public Hand handThreeOfAKindQueen = Euler.parseEulerFormat("QD QS QC KS 6H");
+    public Hand handThreeOfAKindFour = Euler.parseEulerFormat("AD 3C 4H 4D 4S");
 
-    public Hand handStraightTen = Utils.parseEulerFormat("TD 9S 8C 7S 6H");
-    public Hand handStraightSix = Utils.parseEulerFormat("2D 3C 4H 5D 6S");
+    public Hand handStraightTen = Euler.parseEulerFormat("TD 9S 8C 7S 6H");
+    public Hand handStraightSix = Euler.parseEulerFormat("2D 3C 4H 5D 6S");
 
-    public Hand handFlushAce = Utils.parseEulerFormat("TD 5D 3D 7D AD");
-    public Hand handFlushNine = Utils.parseEulerFormat("2S 3S 9S 5S 6S");
+    public Hand handFlushAce = Euler.parseEulerFormat("TD 5D 3D 7D AD");
+    public Hand handFlushNine = Euler.parseEulerFormat("2S 3S 9S 5S 6S");
 
-    public Hand handFullHouseAceTwo = Utils.parseEulerFormat("AD AS AC 2S 2H");
-    public Hand handFullHouseAceThree = Utils.parseEulerFormat("AD AC AH 3D 3S");
+    public Hand handFullHouseAceTwo = Euler.parseEulerFormat("AD AS AC 2S 2H");
+    public Hand handFullHouseAceThree = Euler.parseEulerFormat("AD AC AH 3D 3S");
 
-    public Hand handFourOfAKindQueen = Utils.parseEulerFormat("QD QS QC KS QH");
-    public Hand handFourOfAKindFour = Utils.parseEulerFormat("AD 4C 4H 4D 4S");
+    public Hand handFourOfAKindQueen = Euler.parseEulerFormat("QD QS QC KS QH");
+    public Hand handFourOfAKindFour = Euler.parseEulerFormat("AD 4C 4H 4D 4S");
 
-    public Hand handStraightFlushJack = Utils.parseEulerFormat("JD TD 8D 7D 9D");
-    public Hand handStraightFlushNine = Utils.parseEulerFormat("5S 6S 7S 8S 9S");
+    public Hand handStraightFlushJack = Euler.parseEulerFormat("JD TD 8D 7D 9D");
+    public Hand handStraightFlushNine = Euler.parseEulerFormat("5S 6S 7S 8S 9S");
 
-    public Hand handRoyalFlushClubs  = Utils.parseEulerFormat("TC AC JC QC KC");
-    public Hand handRoyalFlushHearts = Utils.parseEulerFormat("AH KH QH JH TH");
+    public Hand handRoyalFlushClubs  = Euler.parseEulerFormat("TC AC JC QC KC");
+    public Hand handRoyalFlushHearts = Euler.parseEulerFormat("AH KH QH JH TH");
 
-    public Hand tieHandPairTwoHighCardAceToSeven = Utils.parseEulerFormat("2C 2D AC 9H 7S");
-    public Hand tieHandPairTwoHighCardAceToEight = Utils.parseEulerFormat("2S 2H AD 9C 8S");
+    public Hand tieHandPairTwoHighCardAceToSeven = Euler.parseEulerFormat("2C 2D AC 9H 7S");
+    public Hand tieHandPairTwoHighCardAceToEight = Euler.parseEulerFormat("2S 2H AD 9C 8S");
 
-    public Hand tieHandTwoPairTwoHighCardSeven = Utils.parseEulerFormat("2C 2D AC AH 7S");
-    public Hand tieHandTwoPairTwoHighCardEight = Utils.parseEulerFormat("2S 2H AD AS 8S");
+    public Hand tieHandTwoPairTwoHighCardSeven = Euler.parseEulerFormat("2C 2D AC AH 7S");
+    public Hand tieHandTwoPairTwoHighCardEight = Euler.parseEulerFormat("2S 2H AD AS 8S");
 
-    public Hand tieHandThreeOfAKindEight = Utils.parseEulerFormat("2C 2D 2H AH 8S");
-    public Hand tieHandThreeOfAKindSeven = Utils.parseEulerFormat("2S 2H 2D AS 7S");
+    public Hand tieHandThreeOfAKindEight = Euler.parseEulerFormat("2C 2D 2H AH 8S");
+    public Hand tieHandThreeOfAKindSeven = Euler.parseEulerFormat("2S 2H 2D AS 7S");
 
-    public Hand trueTieHandPair = Utils.parseEulerFormat("2C 4D 9H 8H 8S");
-    public Hand trueTieHandPair2 = Utils.parseEulerFormat("2S 4H 9D 8D 8C");
+    public Hand trueTieHandPair = Euler.parseEulerFormat("2C 4D 9H 8H 8S");
+    public Hand trueTieHandPair2 = Euler.parseEulerFormat("2S 4H 9D 8D 8C");
 
     //isolate tests from implementation
     public static Hand compareTwoHands(Hand one, Hand two){
@@ -69,7 +68,7 @@ public class PokerTest {
 
     @Test
     public void basicTest() {
-        Hand handSimpleThreeOfAKind = Utils.parseEulerFormat("2H 2D 4C 4D 4S");
+        Hand handSimpleThreeOfAKind = Euler.parseEulerFormat("2H 2D 4C 4D 4S");
         evaluateHand(handSimpleThreeOfAKind);
     }
 
