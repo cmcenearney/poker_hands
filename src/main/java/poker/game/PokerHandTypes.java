@@ -137,7 +137,7 @@ public enum PokerHandTypes {
     }
 
     public static int compareTwoPairHands(Hand one, Hand two){
-        if (!isTwoPair(one) && !isTwoPair(two)){
+        if (!isTwoPair(one) || !isTwoPair(two)){
            throw new IllegalArgumentException();
         }
         TreeSet<Rank> handOnePairRanksSet = one.ranksByCount(2);
