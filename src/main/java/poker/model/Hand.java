@@ -5,6 +5,7 @@ import java.util.*;
 public class Hand {
 
     TreeSet<Card> cards = new TreeSet<>();
+    HashMap<Integer, Set<Rank>> ranksByCnt = new HashMap<>();
 
     public Hand (){}
 
