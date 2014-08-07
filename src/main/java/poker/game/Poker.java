@@ -4,6 +4,8 @@ import poker.game.handranks.HandEvaluator;
 import poker.model.Hand;
 
 import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.List;
 
 public class Poker {
 
@@ -45,6 +47,11 @@ public class Poker {
             }
         }
         throw new IllegalArgumentException("Error evaluating these hands: " + handOne.toString() + " " + handTwo.toString());
+    }
+
+    public static Hand winnerFromList(List<Hand> hands){
+        Collections.sort(hands, Poker::compareTwoHands);
+        return hands.get(hands.size() - 1);
     }
 
 }

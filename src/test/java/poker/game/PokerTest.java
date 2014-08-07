@@ -7,6 +7,8 @@ import poker.model.Hand;
 
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -263,6 +265,15 @@ public class PokerTest {
     public void testTrueTieHasNoWinner(){
         Hand winner = compareTwoHands(trueTieHandPair, trueTieHandPair2);
         assertEquals(null, winner);
+    }
+
+    //test evaluating a list of hands
+    @Test
+    public void testWinnerFromList(){
+        List<Hand> hands = new ArrayList<>();
+        hands.add(handSimpleFullHouse); hands.add(handSimpleStraightFlush); hands.add(handSimpleHighCard); hands.add(handSimpleThreeOfAKind); hands.add(handSimpleStraight);
+        Hand winner = Poker.winnerFromList(hands);
+        assertEquals(handSimpleStraightFlush, winner);
     }
 
 }
