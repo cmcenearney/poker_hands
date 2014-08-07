@@ -3,6 +3,10 @@ package poker.game;
 import org.junit.Test;
 import poker.Euler;
 import poker.model.Hand;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class PokerTest {
@@ -59,7 +63,14 @@ public class PokerTest {
 
     //isolate tests from implementation
     public static Hand compareTwoHands(Hand one, Hand two){
-        return Poker.compareTwoHands(one, two);
+        int comp = Poker.compareTwoHands(one, two);
+        if (comp > 0){
+            return one;
+        } else if (comp < 0) {
+            return two;
+        } else {
+            return null;
+        }
     }
 
     public static PokerHandTypes evaluateHand(Hand hand){
@@ -240,6 +251,15 @@ public class PokerTest {
     public void testTrueTieHasNoWinner(){
         Hand winner = compareTwoHands(trueTieHandPair, trueTieHandPair2);
         assertEquals(null, winner);
+    }
+
+    //test evaluating a list of hands
+    @Test
+    public void testWinnerFromList(){
+        List<Hand> hands = new ArrayList<>();
+        hands.add(handSimpleFullHouse); hands.add(handSimpleStraightFlush); hands.add(handSimpleHighCard); hands.add(handSimpleThreeOfAKind); hands.add(handSimpleStraight);
+        Hand winner = Poker.winnerFromList(hands);
+        assertEquals(handSimpleStraightFlush, winner);
     }
 
 }

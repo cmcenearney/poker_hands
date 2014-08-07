@@ -2,6 +2,9 @@ package poker.game;
 
 import poker.model.Hand;
 
+import java.util.Collections;
+import java.util.List;
+
 public class Poker {
 
     Poker(){}
@@ -15,25 +18,24 @@ public class Poker {
         throw new IllegalArgumentException("This hand could not be evaluated: " + hand.toString());
     }
 
-    public static Hand compareTwoHands(Hand handOne, Hand handTwo){
+    public static int compareTwoHands(Hand handOne, Hand handTwo){
         PokerHandTypes handOneRank = evaluateHand(handOne);
         PokerHandTypes handTwoRank = evaluateHand(handTwo);
         if (handOneRank.equals(handTwoRank)){
             //each hand has custom comparator for this situation
-            int comparison = handOneRank.comparator.compare(handOne, handTwo);
-            if (comparison > 0){
-                return handOne;
-            } else if (comparison < 0){
-                return handTwo;
-            }
+            return handOneRank.comparator.compare(handOne, handTwo);
         } else {
             if (handOneRank.ordinal() > handTwoRank.ordinal()){
-                return handOne;
+                return 1;
             } else {
-                return handTwo;
+                return -1;
             }
         }
-        return null;
+    }
+
+    public static Hand winnerFromList(List<Hand> hands){
+        Collections.sort(hands, Poker::compareTwoHands);
+        return hands.get(hands.size() - 1);
     }
 
 }
