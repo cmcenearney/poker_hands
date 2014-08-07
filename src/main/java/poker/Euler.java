@@ -42,7 +42,7 @@ public class Euler {
         List<Card> cards = new ArrayList<>();
         List<String> cardAbbrevs = Arrays.asList(handString.split(" "));
         if (cards.size() > 7){
-            throw new IllegalArgumentException("Whoa dude - 7 is the max");
+            throw new IllegalArgumentException(Poker.TOO_MANY_CARDS_ERROR);
         }
         cardAbbrevs.stream()
                 .forEach(c -> cards.add(new Card(c)));

@@ -7,7 +7,8 @@ import java.util.List;
 
 public class Poker {
 
-    Poker(){}
+    public static final String TOO_MANY_CARDS_ERROR = "Hold yer horses pard. 7 cards is the max round here.";
+    public static final int MAX_CARDS = 7;
 
     public static PokerHandTypes evaluateHand(Hand hand){
         for(PokerHandTypes pokerHandTypes : PokerHandTypes.highestToLowest()){

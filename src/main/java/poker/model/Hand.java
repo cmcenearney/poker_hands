@@ -1,5 +1,7 @@
 package poker.model;
 
+import poker.game.Poker;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -9,16 +11,10 @@ public class Hand {
     TreeSet<Card> cards = new TreeSet<>();
     HashMap<Integer, TreeSet<Rank>> ranksByCountHash = new HashMap<>();
 
-    public Hand() {
-    }
+    public Hand() {}
 
     public Hand(List<Card> cards) {
-        try {
-            this.cards.addAll(cards);
-        } catch (IllegalArgumentException e) {
-            System.out.println("could not add all cards to the set of cards in this hand");
-            e.printStackTrace();
-        }
+        cards.stream().forEach(c -> addCard(c));
         calculateRanksByCountHash();
     }
 
@@ -104,6 +100,9 @@ public class Hand {
     }
 
     public void addCard(Card card) {
+        if (cards.size() == Poker.MAX_CARDS){
+            throw new IllegalArgumentException(Poker.TOO_MANY_CARDS_ERROR);
+        }
         cards.add(card);
         if (totalCardsInRanksByCount() != cards.size()) {
             calculateRanksByCountHash();

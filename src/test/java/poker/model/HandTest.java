@@ -3,6 +3,7 @@ package poker.model;
 import org.junit.Before;
 import org.junit.Test;
 import poker.Euler;
+import poker.game.Poker;
 
 import java.util.*;
 
@@ -115,5 +116,22 @@ public class HandTest {
         assertEquals(1,h.ranksByCountHash.get(3).size());
         h.addCard(new Card("AD"));
         assertEquals(2,h.ranksByCountHash.get(1).size());
+    }
+
+    @Test
+    public void testWeKnowWhatTheMaxNumberOfCardsIs(){
+        assertEquals("make sure the Poker.MAX_CARDS is what we think it is", 7, Poker.MAX_CARDS);
+    }
+
+    @Test
+    public void testCanNotAddMoreThanSevenCardsToHand(){
+        handSimplePair.addCard(new Card("KH"));
+        handSimplePair.addCard(new Card("AH"));
+        try {
+            handSimplePair.addCard(new Card("8C"));
+            fail("should not reach here");
+        } catch (IllegalArgumentException e){
+            assertEquals(Poker.TOO_MANY_CARDS_ERROR, e.getMessage());
+        }
     }
 }
