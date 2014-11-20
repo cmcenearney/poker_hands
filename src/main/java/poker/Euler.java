@@ -25,7 +25,7 @@ public class Euler {
         } catch (IOException e){
             e.printStackTrace();
         }
-        System.out.println(playerOneWins);
+        System.out.println("Euler problem - # of hands won by player one: " + playerOneWins);
     }
 
     static void evaluateEuler(String line){
