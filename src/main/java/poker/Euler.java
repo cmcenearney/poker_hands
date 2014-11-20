@@ -3,6 +3,7 @@ package poker;
 import poker.game.Poker;
 import poker.model.Card;
 import poker.model.Hand;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -33,7 +34,7 @@ public class Euler {
             throw new IllegalArgumentException("could not parse: " + line);
         }
         int winner = Poker.compareTwoHands(hands[0], hands[1]);
-        if (winner > 0) {
+        if (winner == 1){
                 playerOneWins++;
         }
     }
@@ -42,7 +43,7 @@ public class Euler {
         List<Card> cards = new ArrayList<>();
         List<String> cardAbbrevs = Arrays.asList(handString.split(" "));
         if (cards.size() > 7){
-            throw new IllegalArgumentException(Poker.TOO_MANY_CARDS_ERROR);
+            throw new IllegalArgumentException("Whoa dude - 7 is the max");
         }
         cardAbbrevs.stream()
                 .forEach(c -> cards.add(new Card(c)));

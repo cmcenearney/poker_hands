@@ -11,10 +11,16 @@ public class Hand {
     TreeSet<Card> cards = new TreeSet<>();
     HashMap<Integer, TreeSet<Rank>> ranksByCountHash = new HashMap<>();
 
-    public Hand() {}
+    public Hand() {
+    }
 
     public Hand(List<Card> cards) {
-        cards.stream().forEach(c -> addCard(c));
+        try {
+            this.cards.addAll(cards);
+        } catch (IllegalArgumentException e) {
+            System.out.println("could not add all cards to the set of cards in this hand");
+            e.printStackTrace();
+        }
         calculateRanksByCountHash();
     }
 
@@ -100,9 +106,6 @@ public class Hand {
     }
 
     public void addCard(Card card) {
-        if (cards.size() == Poker.MAX_CARDS){
-            throw new IllegalArgumentException(Poker.TOO_MANY_CARDS_ERROR);
-        }
         cards.add(card);
         if (totalCardsInRanksByCount() != cards.size()) {
             calculateRanksByCountHash();

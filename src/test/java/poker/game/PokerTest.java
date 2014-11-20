@@ -2,8 +2,11 @@ package poker.game;
 
 import org.junit.Test;
 import poker.Euler;
+import poker.game.handranks.HandEvaluator;
 import poker.model.Hand;
 
+
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,18 +66,29 @@ public class PokerTest {
 
     //isolate tests from implementation
     public static Hand compareTwoHands(Hand one, Hand two){
-        int comp = Poker.compareTwoHands(one, two);
-        if (comp > 0){
+        //return Poker.compareTwoHands(one, two);
+        if (Poker.compareTwoHands(one, two) > 0 ) {
             return one;
-        } else if (comp < 0) {
+        } else if (Poker.compareTwoHands(one, two) < 0){
             return two;
-        } else {
-            return null;
         }
+        return null;
     }
 
-    public static PokerHandTypes evaluateHand(Hand hand){
+    public static PokerHandRanks evaluateHand(Hand hand){
         return Poker.evaluateHand(hand);
+    }
+
+    public static boolean applyTest(PokerHandRanks handType, Hand hand){
+        try {
+            Class<? extends HandEvaluator> c = handType.evaluator;
+            Method testMethod = handType.evaluator.getMethod("test", Hand.class);
+            return (Boolean) testMethod.invoke(c, hand);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Test
@@ -86,54 +100,54 @@ public class PokerTest {
     //test hand 'test' functions
     @Test
     public void testSimpleHighCard(){
-        assertEquals(true, PokerHandTypes.HIGH_CARD.test.apply(handSimpleHighCard));
-        assertEquals(false, PokerHandTypes.TWO_PAIR.test.apply(handSimpleThreeOfAKind));
-        assertEquals(false, PokerHandTypes.TWO_PAIR.test.apply(handSimplePair));
+        assertEquals(true, applyTest(PokerHandRanks.HIGH_CARD, handSimpleHighCard));
+        assertEquals(false, applyTest(PokerHandRanks.TWO_PAIR, handSimpleThreeOfAKind));
+        assertEquals(false, applyTest(PokerHandRanks.TWO_PAIR, handSimplePair));
     }
 
     @Test
     public void testSimpleTwoPair(){
-        assertEquals(true, PokerHandTypes.TWO_PAIR.test.apply(handSimpleTwoPair));
-        assertEquals(false, PokerHandTypes.TWO_PAIR.test.apply(handSimpleThreeOfAKind));
-        assertEquals(false, PokerHandTypes.TWO_PAIR.test.apply(handSimplePair));
+        assertEquals(true, applyTest(PokerHandRanks.TWO_PAIR, handSimpleTwoPair));
+        assertEquals(false, applyTest(PokerHandRanks.TWO_PAIR, handSimpleThreeOfAKind));
+        assertEquals(false, applyTest(PokerHandRanks.TWO_PAIR, handSimplePair));
     }
 
     @Test
     public void testSimpleThreeOfAKind(){
-        assertEquals(true, PokerHandTypes.THREE_OF_A_KIND.test.apply(handSimpleThreeOfAKind));
-        assertEquals(false, PokerHandTypes.THREE_OF_A_KIND.test.apply(handSimplePair));
-        assertEquals(false, PokerHandTypes.THREE_OF_A_KIND.test.apply(handSimpleTwoPair));
-        assertEquals(false, PokerHandTypes.THREE_OF_A_KIND.test.apply(handSimpleFourOfAKind));
+        assertEquals(true, applyTest(PokerHandRanks.THREE_OF_A_KIND, handSimpleThreeOfAKind));
+        assertEquals(false, applyTest(PokerHandRanks.THREE_OF_A_KIND, handSimplePair));
+        assertEquals(false, applyTest(PokerHandRanks.THREE_OF_A_KIND, handSimpleTwoPair));
+        assertEquals(false, applyTest(PokerHandRanks.THREE_OF_A_KIND, handSimpleFourOfAKind));
     }
 
     @Test
     public void testSimpleStraight(){
-        assertEquals(true, PokerHandTypes.STRAIGHT.test.apply(handSimpleStraight));
+        assertEquals(true, applyTest(PokerHandRanks.STRAIGHT, handSimpleStraight));
     }
 
     @Test
     public void testSimpleFlush(){
-        assertEquals(true, PokerHandTypes.FLUSH.test.apply(handSimpleFlush));
+        assertEquals(true, applyTest(PokerHandRanks.FLUSH, handSimpleFlush));
     }
 
     @Test
     public void testSimpleFullHouse(){
-        assertEquals(true, PokerHandTypes.FULL_HOUSE.test.apply(handSimpleFullHouse));
+        assertEquals(true, applyTest(PokerHandRanks.FULL_HOUSE, handSimpleFullHouse));
     }
 
     @Test
     public void testSimpleFourOfAKind(){
-        assertEquals(true, PokerHandTypes.FOUR_OF_A_KIND.test.apply(handSimpleFourOfAKind));
+        assertEquals(true, applyTest(PokerHandRanks.FOUR_OF_A_KIND, handSimpleFourOfAKind));
     }
 
     @Test
     public void testSimpleStraightFlush(){
-        assertEquals(true, PokerHandTypes.STRAIGHT_FLUSH.test.apply(handSimpleStraightFlush));
+        assertEquals(true, applyTest(PokerHandRanks.STRAIGHT_FLUSH, handSimpleStraightFlush));
     }
 
     @Test
     public void testSimpleRoyalFlush(){
-        assertEquals(true, PokerHandTypes.ROYAL_FLUSH.test.apply(handSimpleRoyalFlush));
+        assertEquals(true, applyTest(PokerHandRanks.ROYAL_FLUSH, handSimpleRoyalFlush));
     }
 
     //correct evaluation - hands of different types
@@ -163,7 +177,7 @@ public class PokerTest {
 
     @Test
     public void testFourOfAKindEvaluates() {
-        assertEquals(PokerHandTypes.FOUR_OF_A_KIND, evaluateHand(handSimpleFourOfAKind));
+        assertEquals(PokerHandRanks.FOUR_OF_A_KIND, evaluateHand(handSimpleFourOfAKind));
     }
 
     @Test
