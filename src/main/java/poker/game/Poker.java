@@ -1,11 +1,13 @@
 package poker.game;
 
 import poker.game.handranks.HandEvaluator;
+import poker.model.Card;
 import poker.model.Hand;
+import util.NKCombos;
 
 import java.lang.reflect.Method;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Poker {
 
@@ -51,8 +53,30 @@ public class Poker {
     }
 
     public static Hand winnerFromList(List<Hand> hands){
-        Collections.sort(hands, Poker::compareTwoHands);
-        return hands.get(hands.size() - 1);
+        List<Hand> handsCopy = hands.stream().collect(Collectors.toList());
+        Collections.sort(handsCopy, Poker::compareTwoHands);
+        return handsCopy.get(handsCopy.size() - 1);
+    }
+
+    public static Hand showdown(List<Card> board, List<Hand> players){
+        List<Hand> bestHands = players.stream()
+                .map(p -> bestHandFromBoard(board, p))
+                .collect(Collectors.toList());
+        Hand winner = winnerFromList(bestHands);
+        return players.get(bestHands.indexOf(winner));
+    }
+
+    public static Hand bestHandFromBoard(List<Card> board, Hand hand){
+        NKCombos<Card> nk = new NKCombos<>(5);
+        Set<List<Card>> combos = nk.getKCombinations(board, 3);
+        List<Hand> hands = new ArrayList<Hand>();
+        for (List<Card> cards : combos){
+            Hand copy = new Hand();
+            hand.getCards().stream().forEach(c -> copy.addCard(c));
+            cards.stream().forEach(c -> copy.addCard(c));
+            hands.add(copy);
+        }
+        return winnerFromList(hands);
     }
 
 }

@@ -2,9 +2,10 @@ package util;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 
-public class IndexCombinations {
+public class NKCombos<T> {
 
     Integer n;
     ICTree tree;
@@ -20,10 +21,26 @@ public class IndexCombinations {
         }
     }
 
-    public IndexCombinations(Integer n){
+    public NKCombos(Integer n){
         this.n = n;
         tree = new ICTree(null, null);
         initTree();
+    }
+
+    public HashSet<HashSet<Integer>> getKCombinations(int k){
+        HashSet<HashSet<Integer>> combos = new HashSet<HashSet<Integer>>();
+        for (ICTree t : dls(tree, k, new ArrayList<>())){
+            combos.add(getValues(t));
+        }
+        return combos;
+    }
+
+    public Set<List<T>> getKCombinations(List<T> list, int k){
+        return getKCombinations(k).stream()
+                .map(set -> set.stream()
+                    .map(i -> list.get(i))
+                    .collect(Collectors.toList()))
+                .collect(Collectors.toSet());
     }
 
     private void initTree(){
@@ -97,12 +114,6 @@ public class IndexCombinations {
         return values;
     }
 
-    HashSet<HashSet<Integer>> getKCombinations(int k){
-        HashSet<HashSet<Integer>> combos = new HashSet<HashSet<Integer>>();
-        for (ICTree t : dls(tree, k, new ArrayList<>())){
-            combos.add(getValues(t));
-        }
-        return combos;
-    }
+
 
 }

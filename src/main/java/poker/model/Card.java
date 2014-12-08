@@ -55,4 +55,12 @@ public class Card implements Comparable{
         result = 31 * result + suit.hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "rank=" + rank +
+                ", suit=" + suit +
+                '}';
+    }
 }
