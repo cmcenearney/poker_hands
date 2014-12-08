@@ -38,8 +38,8 @@ public class NKCombos<T> {
     public Set<List<T>> getKCombinations(List<T> list, int k){
         return getKCombinations(k).stream()
                 .map(set -> set.stream()
-                    .map(i -> list.get(i))
-                    .collect(Collectors.toList()))
+                        .map(i -> list.get(i))
+                        .collect(Collectors.toList()))
                 .collect(Collectors.toSet());
     }
 
@@ -113,7 +113,5 @@ public class NKCombos<T> {
         }
         return values;
     }
-
-
 
 }

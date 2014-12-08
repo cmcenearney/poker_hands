@@ -40,8 +40,6 @@ public class TexasHoldEmShowdownTest {
     @Test
     public void testShowdown(){
         Hand winner = Poker.showdown(board, players);
-        //System.out.println(playerThree.toString());
-        //System.out.println(winner);
         assertEquals(playerThree, winner);
     }
 

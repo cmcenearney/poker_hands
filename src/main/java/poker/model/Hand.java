@@ -1,8 +1,8 @@
 package poker.model;
 
-import poker.game.Poker;
-
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -21,6 +21,11 @@ public class Hand {
             System.out.println("could not add all cards to the set of cards in this hand");
             e.printStackTrace();
         }
+        calculateRanksByCountHash();
+    }
+
+    public Hand(TreeSet<Card> cards){
+        this.cards = cards;
         calculateRanksByCountHash();
     }
 

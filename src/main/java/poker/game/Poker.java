@@ -66,14 +66,13 @@ public class Poker {
         return players.get(bestHands.indexOf(winner));
     }
 
-    public static Hand bestHandFromBoard(List<Card> board, Hand hand){
-        NKCombos<Card> nk = new NKCombos<>(5);
+    private static Hand bestHandFromBoard(List<Card> board, Hand hand){
+        NKCombos<Card> nk = new NKCombos<Card>(5);
         Set<List<Card>> combos = nk.getKCombinations(board, 3);
         List<Hand> hands = new ArrayList<Hand>();
-        for (List<Card> cards : combos){
-            Hand copy = new Hand();
-            hand.getCards().stream().forEach(c -> copy.addCard(c));
-            cards.stream().forEach(c -> copy.addCard(c));
+        for (List<Card> comboFromBoard : combos){
+            Hand copy = new Hand(hand.getCards());
+            comboFromBoard.stream().forEach(c -> copy.addCard(c));
             hands.add(copy);
         }
         return winnerFromList(hands);
