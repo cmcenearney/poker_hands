@@ -63,17 +63,6 @@ public class NKCombos<T> {
         }
     }
 
-    void dfs(ICTree node, Consumer<ICTree> f){
-        Set<ICTree> visited = new HashSet<>();
-        for (Integer i : node.children.keySet()) {
-            node = node.children.get(i);
-            if (!visited.contains(node)) {
-                f.accept(node);
-                dfs(node, f);
-            }
-        }
-    }
-
     List<ICTree> breadthFirstTraversal(ICTree node){
         List<ICTree> results = new LinkedList<ICTree>();
         Queue<ICTree> queue = new LinkedList<>();
