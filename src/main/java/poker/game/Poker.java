@@ -1,12 +1,15 @@
 package poker.game;
 
+import combinatrix.Combinatrix;
 import poker.game.handranks.HandEvaluator;
 import poker.model.Card;
 import poker.model.Hand;
-import util.NKCombos;
 
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Poker {
@@ -67,9 +70,8 @@ public class Poker {
     }
 
     private static Hand bestHandFromBoard(List<Card> board, Hand hand){
-        NKCombos<Card> nk = new NKCombos<Card>(5);
-        Set<List<Card>> combos = nk.getKCombinations(board, 3);
-        List<Hand> hands = new ArrayList<Hand>();
+        Set<List<Card>> combos = new Combinatrix<>(5,3,board).hurtMe();
+        List<Hand> hands = new ArrayList<>();
         for (List<Card> comboFromBoard : combos){
             Hand copy = new Hand(hand.getCards());
             comboFromBoard.stream().forEach(c -> copy.addCard(c));
