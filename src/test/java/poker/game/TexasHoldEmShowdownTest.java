@@ -11,12 +11,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static poker.game.Poker.validateShowdownFromOneDeck;
 
 public class TexasHoldEmShowdownTest {
 
     /*
     test case taken from http://en.wikipedia.org/wiki/Texas_hold_%27em
-    the best hand should playerThree with a Full house, kings full of fours
+    the best hand should be playerThree with a Full house, kings full of fours
      */
     Hand playerOne = Euler.parseEulerFormat("4D AC");
     Hand playerTwo = Euler.parseEulerFormat("9S AS");
@@ -41,6 +43,13 @@ public class TexasHoldEmShowdownTest {
     public void testShowdown(){
         Hand winner = Poker.showdown(board, players);
         assertEquals(playerThree, winner);
+    }
+
+    @Test
+    public void testValidateDeckForShowdown(){
+        assert(validateShowdownFromOneDeck(players, board));
+        board.add(new Card("KS"));
+        assertFalse(validateShowdownFromOneDeck(players, board));
     }
 
 }

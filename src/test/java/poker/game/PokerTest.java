@@ -3,14 +3,17 @@ package poker.game;
 import org.junit.Test;
 import poker.Euler;
 import poker.game.handranks.HandEvaluator;
+import poker.model.Card;
 import poker.model.Hand;
-
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class PokerTest {
 
@@ -274,6 +277,36 @@ public class PokerTest {
         hands.add(handSimpleFullHouse); hands.add(handSimpleStraightFlush); hands.add(handSimpleHighCard); hands.add(handSimpleThreeOfAKind); hands.add(handSimpleStraight);
         Hand winner = Poker.winnerFromList(hands);
         assertEquals(handSimpleStraightFlush, winner);
+    }
+
+    @Test
+    public void testValidateHandsFromOneDeck(){
+        List<Hand> invalidHands = new ArrayList<>(Arrays.asList(handSimpleHighCard, handSimplePair));
+        assertFalse(Poker.validateHandsFromOneDeck(invalidHands));
+        List<Hand> validHands = new ArrayList<>(Arrays.asList(handTwoPairKingQueen, handTwoPairKingFour));
+        assertTrue(Poker.validateHandsFromOneDeck(validHands));
+    }
+
+    @Test
+    public void testValidateCardsFromOneDeck(){
+        List<Card> invalidCards = new ArrayList<>(Arrays.asList(
+                new Card("2H"),
+                new Card("5D"),
+                new Card("7C"),
+                new Card("9D"),
+                new Card("AS"),
+                new Card("2H"),
+                new Card("AS")));
+        assertFalse(Poker.validateCardsFromOneDeck(invalidCards));
+        List<Card> validCards = new ArrayList<>(Arrays.asList(
+                new Card("2H"),
+                new Card("5D"),
+                new Card("7C"),
+                new Card("9D"),
+                new Card("AS"),
+                new Card("2C"),
+                new Card("AD")));
+        assertTrue(Poker.validateCardsFromOneDeck(validCards));
     }
 
 }

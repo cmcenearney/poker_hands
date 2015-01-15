@@ -3,13 +3,11 @@ package poker.game;
 import combinatrix.Combinatrix;
 import poker.game.handranks.HandEvaluator;
 import poker.model.Card;
+import poker.model.Deck;
 import poker.model.Hand;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Poker {
@@ -79,5 +77,30 @@ public class Poker {
         }
         return winnerFromList(hands);
     }
+
+    public static boolean validateShowdownFromOneDeck(List<Hand> hands, List<Card> cards){
+        cards.addAll(hands.stream()
+                .flatMap(h -> h.getCards().stream())
+                .collect(Collectors.toList()));
+        return validateCardsFromOneDeck(cards);
+    }
+
+    public static boolean validateHandsFromOneDeck(List<Hand> hands){
+        List<Card> cards = hands.stream()
+                .flatMap(h -> h.getCards().stream())
+                .collect(Collectors.toList());
+        return validateCardsFromOneDeck(cards);
+    }
+
+    public static boolean validateCardsFromOneDeck(List<Card> cards){
+        Set<Card> deck = new HashSet<>(Deck.standardDeck);
+        if (cards.stream().anyMatch(c -> !deck.contains(c)))
+            return false;
+        Set<Card> testSet = new HashSet<>(cards);
+        if (testSet.size() != cards.size())
+            return false;
+        return true;
+    }
+
 
 }

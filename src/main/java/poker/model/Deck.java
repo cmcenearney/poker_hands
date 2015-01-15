@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Deck {
 
-    static final List<Card> standardDeck = new ArrayList<Card>();
+    public static final List<Card> standardDeck = new ArrayList<Card>();
 
     static {
         for(Rank rank : Rank.values()){
